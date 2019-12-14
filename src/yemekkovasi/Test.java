@@ -3,7 +3,25 @@ package yemekkovasi;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IlkClass {
+/* 
+        Firma
+            Sipariş alabiliyor, yola çıktığını bildiriyor
+            Menüsünü değiştirebiliyor, silebiliyor ve ekleyebiliyor(--PDF FIKIR DIŞI--)
+            Kendi kullanıcı ve giriş bilgilerini değiştirebiliyor(--PDF FIKIR DIŞI--)
+        Müşteri
+            Sipariş verebiliyor,görüntüleyebiliyor, onaylayabiliyor, yola çıkmadıysa iade edebiliyor
+            Kendi kullanıcı ve giriş bilgilerini değiştirebiliyor(--PDF FIKIR DIŞI--)
+
+        **En az üç adet sınıf kullanımı(Firma, Siparis, Musteri, Kullanici, Yemek)(=)
+        **Dizi ve ArrayList'lerde CRUD(=)
+        **Kalıtım ve alt sınıf üretme(?)
+        **Overloading(=)
+        **Override(=)
+        **Test sınıfı oluşması(!=)
+        ****Test sınıfında kontrol yapısı bulunmaması(?)
+*/
+
+public class Test {
 
     public static void main(String[] args) {
         boolean don = true;
