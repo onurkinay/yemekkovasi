@@ -45,12 +45,12 @@ public class Firma extends Kullanici{
     
     
     /////STATIC FUNCS.
-    public static void SiparisDetay(Musteri[] musteriler, ArrayList<Siparis> siparisler, int siparis_kod) {
+    public static void SiparisDetay(ArrayList<Musteri> musteriler, ArrayList<Siparis> siparisler, int siparis_kod) {
 
         System.out.println("Siparis detay:"
-                + "\nMüşteri adı:" + musteriler[siparisler.get(siparis_kod).musteri_kimlik].ad
-                + "\nAdresi: " + musteriler[siparisler.get(siparis_kod).musteri_kimlik].adres
-                + "\nTelefonu:" + musteriler[siparisler.get(siparis_kod).musteri_kimlik].telefon);
+                + "\nMüşteri adı:" + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).ad
+                + "\nAdresi: " + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).adres
+                + "\nTelefonu:" + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).telefon);
 
         for (int i = 0; i < siparisler.get(siparis_kod).siparis.length; i++) {
             int porsiyon = Integer.parseInt(siparisler.get(siparis_kod).siparis[i][1]);
@@ -78,10 +78,10 @@ public class Firma extends Kullanici{
             }
         }
     }
-     public static void SiparisListele(Firma[] firmalar, ArrayList<Siparis> firma_siparisler, Musteri[] musteriler, int firma_index){
+     public static void SiparisListele(ArrayList<Firma> firmalar, ArrayList<Siparis> firma_siparisler, ArrayList<Musteri> musteriler, int firma_index){
          for (int i = 0; i < firma_siparisler.size(); i++) {
-                            System.out.println((i + 1) + ". " + musteriler[firma_siparisler.get(i).musteri_kimlik].ad
-                                    + " (toplam Tutar:" + firma_siparisler.get(i).toplamTutar(firmalar[firma_index]) + ")");// i. müsterinin siparişi (toplam TL)
+                            System.out.println((i + 1) + ". " + musteriler.get(firma_siparisler.get(i).musteri_kimlik).ad
+                                    + " (toplam Tutar:" + firma_siparisler.get(i).toplamTutar(firmalar.get(firma_index)) + ")");// i. müsterinin siparişi (toplam TL)
                         }
     }
      

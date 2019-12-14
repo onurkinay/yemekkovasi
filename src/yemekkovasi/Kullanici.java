@@ -1,6 +1,7 @@
 package yemekkovasi;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -20,14 +21,14 @@ public class Kullanici {
     String telefon;
     
     
-    public static int KullaniciKontrol(Firma[] firmalar) {
+    public static int KullaniciKontrol(ArrayList<Firma> firmalar) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Kullanıcı adınızı giriniz: ");
         String ka = sc.next();
         System.out.println("Şifrenizi giriniz");
         String sifre = sc.next();
-        for (int i = 0; i < firmalar.length; i++) {
-            if (ka.equals(firmalar[i].kadi) && sifre.equals(firmalar[i].sifre)) {
+        for (int i = 0; i < firmalar.size(); i++) {
+            if (ka.equals(firmalar.get(i).kadi) && sifre.equals(firmalar.get(i).sifre)) {
                 return i;
 
             }
@@ -35,14 +36,14 @@ public class Kullanici {
         return -1;
     }
 
-    public static int KullaniciKontrol(Musteri[] musteriler) {
+    public static int KullaniciKontrol(ArrayList<Musteri> musteriler, int k) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Kullanıcı adınızı giriniz: ");
         String ka = sc.next();
         System.out.println("Şifrenizi giriniz");
         String sifre = sc.next();
-        for (int i = 0; i < musteriler.length; i++) {
-            if (ka.equals(musteriler[i].kadi) && sifre.equals(musteriler[i].sifre)) {
+        for (int i = 0; i < musteriler.size(); i++) {
+            if (ka.equals(musteriler.get(i).kadi) && sifre.equals(musteriler.get(i).sifre)) {
                 return i;
 
             }
