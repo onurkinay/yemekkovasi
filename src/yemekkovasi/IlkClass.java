@@ -86,6 +86,7 @@ public class IlkClass {
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Yemek menüsü işlemleri");
                     System.out.println("3. Kullanıcı bilgilerimi değiştir");
+                    System.out.println("4. Giriş bilgilerimi değiştir");
                     komut = sc.nextInt();
                     switch (komut) {
                         case 1:
@@ -123,7 +124,7 @@ public class IlkClass {
                                     case 2:
                                         System.out.println("Menüden yemek Silme");
                                         System.out.println("Silmek istediğiniz yemek numarasını yazınız");
-                                        int yemek_index = sc.nextInt()-1;
+                                        int yemek_index = sc.nextInt() - 1;
                                         if (yemek_index >= 0) {
                                             firmalar.get(firma_index).menuler.remove(yemek_index);
                                         } else {
@@ -133,7 +134,7 @@ public class IlkClass {
                                     case 3:
                                         System.out.println("Menüden Yemek Düzenleme");
                                         System.out.println("Düzenlemek istediğiniz yemek numarasını yazınız");
-                                        int yemekd_index = sc.nextInt()-1;
+                                        int yemekd_index = sc.nextInt() - 1;
                                         if (yemekd_index >= 0) {
                                             System.out.println("Değiştirmek istemediğiniz özelliği boş bırakarak devam ediniz");
                                             System.out.println("Yemek adı: ");
@@ -146,6 +147,20 @@ public class IlkClass {
                                         } else {
                                             System.out.println("Yemek numarası negatif olamaz");
                                         }
+                                    case 4:
+                                        System.out.println("Giriş bilgilerinizi düzenliyorsunuz.");
+                                        System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
+                                        System.out.println("-----------------------------");
+                                        System.out.println("Kullanıcı adınız: ");
+                                        String ka = sc.next();
+
+                                        System.out.println("Şifre: ");
+                                        String sifre = sc.next();
+
+                                        firmalar.get(firma_index).kadi = ka;
+                                        firmalar.get(firma_index).sifre = sifre;
+                                        System.out.println("Giriş bilgileriniz değiştirdiniz.");
+                                        break;
                                     default:
                                         break;
                                 }
@@ -154,7 +169,7 @@ public class IlkClass {
                             break;
                         case 3:
                             System.out.println(firmalar.get(firma_index));
-                            System.out.println("Bilgilerinizi değiştirmek için E yazarak devam ediniz");//ADINIZ DİREK ATLIYOR - MÜŞTERİDE AYNI
+                            System.out.println("Bilgilerinizi değiştirmek için E yazarak devam ediniz");
                             String komut_alt = sc.next();
                             if ("E".equals(komut_alt)) {
                                 System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
@@ -200,6 +215,8 @@ public class IlkClass {
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Sipariş Ver");
                     System.out.println("3. Kullanıcı bilgilerimi görüntüle veya değiştir");
+                    System.out.println("4. Giriş bilgilerimi değiştir");
+
                     komut = sc.nextInt();
 
                     switch (komut) {
@@ -236,9 +253,26 @@ public class IlkClass {
                                 String yeni_Adres = sc.next();
                                 degisen_musteri.adres = yeni_Adres.equals("") ? musteriler.get(musteri_index).adres : yeni_Adres;
 
+                                degisen_musteri.kadi = musteriler.get(musteri_index).kadi;
+                                degisen_musteri.sifre = musteriler.get(musteri_index).sifre;
+
                                 musteriler.set(musteri_index, degisen_musteri);
 
                             }
+                            break;
+                        case 4:
+                            System.out.println("Giriş bilgilerinizi düzenliyorsunuz.");
+                            System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
+                            System.out.println("-----------------------------");
+                            System.out.println("Kullanıcı adınız: ");
+                            String ka = sc.next();
+
+                            System.out.println("Şifre: ");
+                            String sifre = sc.next();
+
+                            musteriler.get(musteri_index).kadi = ka;
+                            musteriler.get(musteri_index).sifre = sifre;
+                            System.out.println("Giriş bilgileriniz değiştirdiniz.");
                             break;
                         default:
                             break;
