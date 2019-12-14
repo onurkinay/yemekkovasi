@@ -53,8 +53,8 @@ public class Musteri extends Kullanici{
         ArrayList<String[]> siparis = new ArrayList<>();
         do {
             System.out.println("Menü: ");
-            for (int i = 0; i < firmalar.get(i).menuler.length; i++) {
-                System.out.println((i + 1) + " " + firmalar.get(firma).menuler[i].ad + " Ücret:" + firmalar.get(firma).menuler[i].fiyat);
+            for (int i = 0; i < firmalar.get(i).menuler.size(); i++) {
+                System.out.println((i + 1) + " " + firmalar.get(firma).menuler.get(i).ad + " Ücret:" + firmalar.get(firma).menuler.get(i).fiyat);
             }
             System.out.println("Ürün seçin(Devam etmek için -1 yazınız): ");
             urun = sc.nextInt() - 1;
@@ -63,7 +63,7 @@ public class Musteri extends Kullanici{
             }
             System.out.println("Porsiyon: ");
             int porsiyon = sc.nextInt();
-            siparis.add(new String[]{firmalar.get(firma).menuler[urun].ad, Integer.toString(porsiyon)});
+            siparis.add(new String[]{firmalar.get(firma).menuler.get(urun).ad, Integer.toString(porsiyon)});
         } while (true);
 
         System.out.println("Siparişiniz: ");

@@ -18,13 +18,46 @@ public class IlkClass {
             }
         };
 
-        ArrayList<Firma> firmalar =  new ArrayList<Firma>() {{
-           add(new Firma("Urfalı Dayı'nın Yeri", "Fatih", "0566", new Yemek[]{new Yemek("Lahmacun", 5), new Yemek("Mercimek Çorbası", 6), new Yemek("Urfa DÜrüm", 5)}, "urfali", "qwerty1"));
-            add(new Firma("Adanalı Amca'nın Yeri", "Halıcıoğlu", "0544", new Yemek[]{new Yemek("Lahmacun", 5), new Yemek("İşkembe Çorbası", 6), new Yemek("Adana DÜrüm", 5)}, "adanali", "asdfgh1"));
-            add(new Firma("Japon Recep'in Mekanı", "Acıbadem", "0558", new Yemek[]{new Yemek("Suşi", 15), new Yemek("Ramen", 30), new Yemek("Noodle", 15)}, "japonya4", "osaka11"));
-            add(new Firma("PizzaLove", "Beyoğlu", "0548", new Yemek[]{new Yemek("Küçük Pizza", 5), new Yemek("Orta Pizza", 15), new Yemek("Büyük Pizza", 25)}, "pizza6", "italya"));
-            add(new Firma("Bağcılar Döner", "Bağcılar", "0566", new Yemek[]{new Yemek("Yarım Döner", 5), new Yemek("Lavaş Döner", 15), new Yemek("Porsion Döner", 20)}, "bagcilar", "demirkapi"));
-        }};
+        ArrayList<Firma> firmalar = new ArrayList<Firma>() {
+            {
+                add(new Firma("Urfalı Dayı'nın Yeri", "Fatih", "0566",
+                        new ArrayList<Yemek>() {
+                    {
+                        add(new Yemek("Lahmacun", 5));
+                        add(new Yemek("Mercimek Çorbası", 6));
+                        add(new Yemek("Urfa DÜrüm", 5));
+                    }
+                }, "urfali", "qwerty1"));
+                add(new Firma("Adanalı Amca'nın Yeri", "Halıcıoğlu", "0544", new ArrayList<Yemek>() {
+                    {
+                        add(new Yemek("Lahmacun", 5));
+                        add(new Yemek("İşkembe Çorbası", 6));
+                        add(new Yemek("Adana DÜrüm", 5));
+                    }
+                }, "adanali", "asdfgh1"));
+                add(new Firma("Japon Recep'in Mekanı", "Acıbadem", "0558", new ArrayList<Yemek>() {
+                    {
+                        add(new Yemek("Suşi", 15));
+                        add(new Yemek("Ramen", 30));
+                        add(new Yemek("Noodle", 15));
+                    }
+                }, "japonya4", "osaka11"));
+                add(new Firma("PizzaLove", "Beyoğlu", "0548", new ArrayList<Yemek>() {
+                    {
+                        add(new Yemek("Küçük Pizza", 5));
+                        add(new Yemek("Orta Pizza", 15));
+                        add(new Yemek("Büyük Pizza", 25));
+                    }
+                }, "pizza6", "italya"));
+                add(new Firma("Bağcılar Döner", "Bağcılar", "0566", new ArrayList<Yemek>() {
+                    {
+                        add(new Yemek("Yarım Döner", 5));
+                        add(new Yemek("Lavaş Döner", 15));
+                        add(new Yemek("Porsion Döner", 20));
+                    }
+                }, "bagcilar", "demirkapi"));
+            }
+        };
 
         ArrayList<Siparis> siparisler = new ArrayList<>();
 
@@ -63,14 +96,61 @@ public class IlkClass {
                             Firma.SiparisDurumu(siparisler, siparis_kod);
                             break;
                         case 2:
-                            //YEMEK MENÜ İŞLEMLERİ
-                            //menü ekle
-                            //menü düzenle
-                            //menü sil
+                            int alt_komut = -2;
+                            do {
+                                System.out.println("--Menü Listesi--");
+                                for (int i = 0; i < firmalar.get(firma_index).menuler.size(); i++) {
+                                    Yemek menu = firmalar.get(firma_index).menuler.get(i);
 
-                            for (int i = 0; i < firmalar.get(firma_index).menuler.length; i++) {
+                                    System.out.println((i + 1) + ". " + menu.getAd() + " Ücret: " + menu.fiyat);
+                                }
+                                System.out.println("--Menü Listesi--");
+                                System.out.println("1. Menüye yemek ekle");
+                                System.out.println("2. Menüden yemek sil");
+                                System.out.println("3. Menüden yemek düzenle");
+                                System.out.println("Çıkmak için -1 yazın");
+                                alt_komut = sc.nextInt();
+                                switch (alt_komut) {
+                                    case 1:
+                                        System.out.println("Menüye Yemek Ekleme");
+                                        System.out.println("Yemek adı: ");
+                                        String yemek_ad = sc.next();
+                                        System.out.println("Porsiyon ücreti: ");
+                                        int yemek_fiyat = sc.nextInt();
+                                        firmalar.get(firma_index).menuler.add(new Yemek(yemek_ad, yemek_fiyat));
+                                        System.out.println("Yemek menüye eklenmiştir");
+                                        break;
+                                    case 2:
+                                        System.out.println("Menüden yemek Silme");
+                                        System.out.println("Silmek istediğiniz yemek numarasını yazınız");
+                                        int yemek_index = sc.nextInt()-1;
+                                        if (yemek_index >= 0) {
+                                            firmalar.get(firma_index).menuler.remove(yemek_index);
+                                        } else {
+                                            System.out.println("Yemek numarası negatif olamaz");
+                                        }
+                                        break;
+                                    case 3:
+                                        System.out.println("Menüden Yemek Düzenleme");
+                                        System.out.println("Düzenlemek istediğiniz yemek numarasını yazınız");
+                                        int yemekd_index = sc.nextInt()-1;
+                                        if (yemekd_index >= 0) {
+                                            System.out.println("Değiştirmek istemediğiniz özelliği boş bırakarak devam ediniz");
+                                            System.out.println("Yemek adı: ");
+                                            String yeni_yemek = sc.next();
+                                            System.out.println("Fiyatı: ");
+                                            int yeni_fiyat = sc.nextInt();
 
-                            }
+                                            firmalar.get(firma_index).menuler.set(yemekd_index, new Yemek(yeni_yemek, yeni_fiyat));
+
+                                        } else {
+                                            System.out.println("Yemek numarası negatif olamaz");
+                                        }
+                                    default:
+                                        break;
+                                }
+
+                            } while (alt_komut != -1);
                             break;
                         case 3:
                             System.out.println(firmalar.get(firma_index));
@@ -80,15 +160,15 @@ public class IlkClass {
                                 System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
                                 Firma degisen_firma = new Firma();
                                 System.out.println("Adınız: ");
-                                String yeni_ad = sc.nextLine();
+                                String yeni_ad = sc.next();
                                 degisen_firma.ad = yeni_ad.equals("") ? firmalar.get(firma_index).ad : yeni_ad;
 
                                 System.out.println("Telefon: ");
-                                String yeni_telefon = sc.nextLine();
+                                String yeni_telefon = sc.next();
                                 degisen_firma.telefon = yeni_telefon.equals("") ? firmalar.get(firma_index).telefon : yeni_telefon;
 
                                 System.out.println("Adres: ");
-                                String yeni_Adres = sc.nextLine();
+                                String yeni_Adres = sc.next();
                                 degisen_firma.adres = yeni_Adres.equals("") ? firmalar.get(firma_index).adres : yeni_Adres;
 
                                 firmalar.set(firma_index, degisen_firma);
@@ -98,6 +178,7 @@ public class IlkClass {
                         default:
                             break;
                     }
+
                 } while (komut != -1);
 
             } else {
@@ -140,19 +221,19 @@ public class IlkClass {
                                 System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
                                 Musteri degisen_musteri = new Musteri();
                                 System.out.println("Adınız: ");
-                                String yeni_ad = sc.nextLine();
+                                String yeni_ad = sc.next();
                                 degisen_musteri.ad = yeni_ad.equals("") ? musteriler.get(musteri_index).ad : yeni_ad;
 
                                 System.out.println("Soyadınız: ");
-                                String yeni_soyad = sc.nextLine();
+                                String yeni_soyad = sc.next();
                                 degisen_musteri.soyad = yeni_soyad.equals("") ? musteriler.get(musteri_index).soyad : yeni_soyad;
 
                                 System.out.println("Telefon: ");
-                                String yeni_telefon = sc.nextLine();
+                                String yeni_telefon = sc.next();
                                 degisen_musteri.telefon = yeni_telefon.equals("") ? musteriler.get(musteri_index).telefon : yeni_telefon;
 
                                 System.out.println("Adres: ");
-                                String yeni_Adres = sc.nextLine();
+                                String yeni_Adres = sc.next();
                                 degisen_musteri.adres = yeni_Adres.equals("") ? musteriler.get(musteri_index).adres : yeni_Adres;
 
                                 musteriler.set(musteri_index, degisen_musteri);
@@ -166,4 +247,5 @@ public class IlkClass {
             }
         } while (true);
     }
+
 }

@@ -8,10 +8,10 @@ public class Firma extends Kullanici{
 
     String ad;
     String adres;
-    Yemek[] menuler;// yemek adi - fiyat
+    ArrayList<Yemek> menuler;// yemek adi - fiyat
  
 
-    Firma(/*int kimlik*/String ad, String adres, String telefon, Yemek[] menuler, String kadi, String sifre) {
+    Firma(/*int kimlik*/String ad, String adres, String telefon, ArrayList<Yemek> menuler, String kadi, String sifre) {
         // this.kimlik = kimlik;
         this.ad = ad;
         this.adres = adres;

@@ -29,9 +29,9 @@ public class Siparis {
     public int toplamTutar(Firma firma) {
         int tutar = 0;
         for (int i = 0; i < siparis.length; i++) {
-            for (int j = 0; j < firma.menuler.length; j++) {
-                if (siparis[i][0].equals(firma.menuler[j].ad)) {
-                    tutar += (Integer.parseInt(siparis[i][1]) * firma.menuler[j].fiyat);
+            for (int j = 0; j < firma.menuler.size(); j++) {
+                if (siparis[i][0].equals(firma.menuler.get(j).ad)) {
+                    tutar += (Integer.parseInt(siparis[i][1]) * firma.menuler.get(j).fiyat);
                 }
             }
 
@@ -42,9 +42,9 @@ public class Siparis {
     public static int toplamTutar(Firma firma, ArrayList<String[]> siparisler) {
         int tutar = 0;
         for (int i = 0; i < siparisler.size(); i++) {
-            for (int j = 0; j < firma.menuler.length; j++) {
-                if (siparisler.get(i)[0].equals(firma.menuler[j].ad)) {
-                    tutar += (Integer.parseInt(siparisler.get(i)[1]) * firma.menuler[j].fiyat);
+            for (int j = 0; j < firma.menuler.size(); j++) {
+                if (siparisler.get(i)[0].equals(firma.menuler.get(j).ad)) {
+                    tutar += (Integer.parseInt(siparisler.get(i)[1]) * firma.menuler.get(j).fiyat);
                 }
             }
 
