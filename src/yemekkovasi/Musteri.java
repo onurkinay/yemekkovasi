@@ -80,28 +80,29 @@ public class Musteri extends Kullanici{
     }
 
     public static void SiparisDetay(int siparis_kod, ArrayList<Siparis> musteri_siparisler) {
-
+        Siparis siparis = musteri_siparisler.stream().filter( p-> p.kimlik == siparis_kod).findFirst().get();
         System.out.println("Siparis detay:"
-                + "\nFirma adı:" + Test.firmalar.get(musteri_siparisler.get(siparis_kod).firma_kimlik).ad
-                + "\nAdresi: " + Test.firmalar.get(musteri_siparisler.get(siparis_kod).firma_kimlik).adres
-                + "\nTelefonu:" + Test.firmalar.get(musteri_siparisler.get(siparis_kod).firma_kimlik).telefon);
+                + "\nFirma adı:" + Test.firmalar.get(siparis.firma_kimlik).ad
+                + "\nAdresi: " + Test.firmalar.get(siparis.firma_kimlik).adres
+                + "\nTelefonu:" + Test.firmalar.get(siparis.firma_kimlik).telefon);
 
-        for (int i = 0; i < musteri_siparisler.get(siparis_kod).siparis.length; i++) {
-            int porsiyon = Integer.parseInt(musteri_siparisler.get(siparis_kod).siparis[i][1]);
-            System.out.println(musteri_siparisler.get(siparis_kod).siparis[i][0] + " Porsiyon: " + porsiyon);
+        for (int i = 0; i < siparis.siparis.length; i++) {
+            int porsiyon = Integer.parseInt(siparis.siparis[i][1]);
+            System.out.println(siparis.siparis[i][0] + " Porsiyon: " + porsiyon);
         }
 
-        System.out.println("Sipariş durumu: " + musteri_siparisler.get(siparis_kod).getDurum());
+        System.out.println("Sipariş durumu: " + siparis.getDurum());
     }
 
     public static void Iade(int siparis_kod, ArrayList<Siparis> musteri_siparisler) {
         Scanner sc = new Scanner(System.in);
 
-        if (musteri_siparisler.get(siparis_kod).durum == 0) {
+        Siparis siparis = musteri_siparisler.stream().filter( p-> p.kimlik == siparis_kod).findFirst().get();
+        if (siparis.durum == 0) {
             System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E - Hayır için H)");
             String iade = sc.next();
             if (iade.equals("E")) {
-                Test.siparisler.remove(siparis_kod);
+                Test.siparisler.remove(siparis.kimlik);
                 System.out.println("İade basarili");
             }
         } else {
@@ -111,7 +112,7 @@ public class Musteri extends Kullanici{
 
     public static void SiparisListele(ArrayList<Siparis> musteri_siparisler) {
         for (int i = 0; i < musteri_siparisler.size(); i++) {
-            System.out.println((i + 1) + ". " + Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik).ad + " (toplam Tutar:" + musteri_siparisler.get(i).toplamTutar(Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik)) + ")");// i. müsterinin siparişi (toplam TL)
+            System.out.println((musteri_siparisler.get(i).kimlik) + ". " + Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik).ad + " (toplam Tutar:" + musteri_siparisler.get(i).toplamTutar(Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik)) + ")");// i. müsterinin siparişi (toplam TL)
         }
     }
 

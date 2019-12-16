@@ -4,15 +4,15 @@ package yemekkovasi;
 import java.util.ArrayList;
 
 public class Siparis {
-
-    // int kimlik;
+    static int id = 0;
+    int kimlik;
     int firma_kimlik;
     int musteri_kimlik;
     String[][] siparis; // yemek adı - porsiyon
     int durum;
 
     Siparis(int firma_kimlik, int musteri_kimlik, String[][] siparis) {
-        // this.kimlik = kimlik;
+        this.kimlik = id++;
         this.firma_kimlik = firma_kimlik;
         this.musteri_kimlik = musteri_kimlik;
         this.siparis = siparis;

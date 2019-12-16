@@ -108,7 +108,7 @@ public class Sistem {
                         case 1:
                             Musteri.SiparisListele(musteri_siparisler);
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız: ");
-                            int siparis_kod = sc.nextInt() - 1;
+                            int siparis_kod = sc.nextInt();
                             Musteri.SiparisDetay(siparis_kod, musteri_siparisler);
                             Musteri.Iade(siparis_kod, musteri_siparisler);
                             break;
