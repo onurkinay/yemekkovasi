@@ -19,6 +19,7 @@ public class Firma extends Kullanici{
         this.menuler = menuler;
         this.kadi = kadi;
         this.sifre = sifre;
+        this.k_tip = 2;
     }
 
     public Firma() {
@@ -45,51 +46,52 @@ public class Firma extends Kullanici{
     
     
     /////STATIC FUNCS.
-    public static void SiparisDetay(ArrayList<Musteri> musteriler, ArrayList<Siparis> siparisler, int siparis_kod) {
+    public static void SiparisDetay(int siparis_kod) {
 
         System.out.println("Siparis detay:"
-                + "\nMüşteri adı:" + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).ad
-                + "\nAdresi: " + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).adres
-                + "\nTelefonu:" + musteriler.get(siparisler.get(siparis_kod).musteri_kimlik).telefon);
+                + "\nMüşteri adı:" + Test.musteriler.get(Test.siparisler.get(siparis_kod).musteri_kimlik).ad
+                + "\nAdresi: " + Test.musteriler.get(Test.siparisler.get(siparis_kod).musteri_kimlik).adres
+                + "\nTelefonu:" + Test.musteriler.get(Test.siparisler.get(siparis_kod).musteri_kimlik).telefon);
 
-        for (int i = 0; i < siparisler.get(siparis_kod).siparis.length; i++) {
-            int porsiyon = Integer.parseInt(siparisler.get(siparis_kod).siparis[i][1]);
-            System.out.println(siparisler.get(siparis_kod).siparis[i][0] + " Porsiyon: " + porsiyon);
+        for (int i = 0; i < Test.siparisler.get(siparis_kod).siparis.length; i++) {
+            int porsiyon = Integer.parseInt(Test.siparisler.get(siparis_kod).siparis[i][1]);
+            System.out.println(Test.siparisler.get(siparis_kod).siparis[i][0] + " Porsiyon: " + porsiyon);
 
         }
 
-        System.out.println("Sipariş durumu: " + siparisler.get(siparis_kod).getDurum());
+        System.out.println("Sipariş durumu: " + Test.siparisler.get(siparis_kod).getDurum());
+        
     }
 
-    public static void SiparisDurumu(ArrayList<Siparis> siparisler, int siparis_kod) {
+    public static void SiparisDurumu(int siparis_kod) {
         Scanner sc = new Scanner(System.in);
         String yeniDurum = "";
-        if (siparisler.get(siparis_kod).durum == 0) {
+        if (Test.siparisler.get(siparis_kod).durum == 0) {
             System.out.println("Sipariş yola çıktı mı? (Evet için E - Hayır için H)");
             yeniDurum = sc.next();
             if (yeniDurum.equals("E")) {
-                siparisler.get(siparis_kod).durum = 1;
+                Test.siparisler.get(siparis_kod).durum = 1;
             }
-        } else if (siparisler.get(siparis_kod).durum == 1) {
+        } else if (Test.siparisler.get(siparis_kod).durum == 1) {
             System.out.println("Sipariş teslim edildi mi? (Evet için E - Hayır için H)");
             yeniDurum = sc.next();
             if (yeniDurum.equals("E")) {
-                siparisler.get(siparis_kod).durum = 2;
+                Test.siparisler.get(siparis_kod).durum = 2;
             }
         }
     }
-     public static void SiparisListele(ArrayList<Firma> firmalar, ArrayList<Siparis> firma_siparisler, ArrayList<Musteri> musteriler, int firma_index){
+     public static void SiparisListele(ArrayList<Siparis> firma_siparisler, int firma_index){
          for (int i = 0; i < firma_siparisler.size(); i++) {
-                            System.out.println((i + 1) + ". " + musteriler.get(firma_siparisler.get(i).musteri_kimlik).ad
-                                    + " (toplam Tutar:" + firma_siparisler.get(i).toplamTutar(firmalar.get(firma_index)) + ")");// i. müsterinin siparişi (toplam TL)
+                            System.out.println((i + 1) + ". " + Test.musteriler.get(firma_siparisler.get(i).musteri_kimlik).ad
+                                    + " (toplam Tutar:" + firma_siparisler.get(i).toplamTutar(Test.firmalar.get(firma_index)) + ")");// i. müsterinin siparişi (toplam TL)
                         }
     }
      
-     public static  ArrayList<Siparis> GetSiparisler(ArrayList<Siparis> siparisler, int firma_index){
+     public static  ArrayList<Siparis> GetSiparisler(int firma_index){
          ArrayList<Siparis> firma_siparisler = new ArrayList<>();
-                for (int i = 0; i < siparisler.size(); i++) {
-                    if (siparisler.get(i).firma_kimlik == firma_index) {
-                        firma_siparisler.add(siparisler.get(i));
+                for (int i = 0; i < Test.siparisler.size(); i++) {
+                    if (Test.siparisler.get(i).firma_kimlik == firma_index) {
+                        firma_siparisler.add(Test.siparisler.get(i));
                     }
                 }
                 return firma_siparisler;
