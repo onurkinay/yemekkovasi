@@ -83,21 +83,16 @@ public class Firma extends Kullanici{
             }
         }
     }
-     public static void SiparisListele(ArrayList<Siparis> firma_siparisler, int firma_index){
-         for (int i = 0; i < firma_siparisler.size(); i++) {
-                            System.out.println(firma_siparisler.get(i).kimlik + ". " + Test.musteriler.get(firma_siparisler.get(i).musteri_kimlik).ad
-                                    + " (toplam Tutar:" + firma_siparisler.get(i).toplamTutar(Test.firmalar.get(firma_index)) + ")");// i. müsterinin siparişi (toplam TL)
-                        }
-    }
+     public static void SiparisListele(int firma_index){
+         
+         for (int i = 0; i < Test.siparisler.size(); i++) {
+             if(firma_index == Test.siparisler.get(i).firma_kimlik){
+                            System.out.println((Test.siparisler.get(i).kimlik) + ". " + Test.musteriler.get(Test.siparisler.get(i).musteri_kimlik).ad
+                                    + " (toplam Tutar:" + Test.siparisler.get(i).toplamTutar(Test.firmalar.get(firma_index)) + ")");// i. müsterinin siparişi (toplam TL)
+                   
+             }
+    }}
      
-     public static  ArrayList<Siparis> GetSiparisler(int firma_index){
-         ArrayList<Siparis> firma_siparisler = new ArrayList<>();
-                for (int i = 0; i < Test.siparisler.size(); i++) {
-                    if (Test.siparisler.get(i).firma_kimlik == firma_index) {
-                        firma_siparisler.add(Test.siparisler.get(i));
-                    }
-                }
-                return firma_siparisler;
-     }
+      
      ////STATIC FUNCS.
 }

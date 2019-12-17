@@ -1,15 +1,13 @@
 package yemekkovasi;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Musteri extends Kullanici{
+public class Musteri extends Kullanici {
     //  int kimlik;
- 
 
     Musteri(String ad, String telefon, String adres, String kadi, String sifre) {
-        this.ad = ad; 
+        this.ad = ad;
         this.telefon = telefon;
         this.adres = adres;
         this.kadi = kadi;
@@ -19,8 +17,6 @@ public class Musteri extends Kullanici{
 
     public Musteri() {
     }
-    
-    
 
     public void BilgiDegistir(Musteri degisim) {
         this.ad = degisim.ad;
@@ -32,10 +28,8 @@ public class Musteri extends Kullanici{
 
     @Override
     public String toString() {
-        return  "Ad Soyad: " + ad + "\nTelefon: " + telefon + "\nAdres: " + adres;
+        return "Ad Soyad: " + ad + "\nTelefon: " + telefon + "\nAdres: " + adres;
     }
-    
-    
 
     ////STATIC FUNCS.
     public static void addSiparis(int musteri_index) {
@@ -74,13 +68,13 @@ public class Musteri extends Kullanici{
             Test.siparisler.add(new Siparis(firma, musteri_index, siparis.toArray(new String[0][0])));
             System.out.println("Siparişiniz alındı");
         } else {
-            System.out.println("Siparişiniz onaylamadınız");
+            System.out.println("---Siparişiniz onaylamadınız---");
         }
 
     }
 
-    public static void SiparisDetay(int siparis_kod, ArrayList<Siparis> musteri_siparisler) {
-        Siparis siparis = musteri_siparisler.stream().filter( p-> p.kimlik == siparis_kod).findFirst().get();
+    public static void SiparisDetay(int siparis_kod) {
+        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
         System.out.println("Siparis detay:"
                 + "\nFirma adı:" + Test.firmalar.get(siparis.firma_kimlik).ad
                 + "\nAdresi: " + Test.firmalar.get(siparis.firma_kimlik).adres
@@ -94,10 +88,10 @@ public class Musteri extends Kullanici{
         System.out.println("Sipariş durumu: " + siparis.getDurum());
     }
 
-    public static void Iade(int siparis_kod, ArrayList<Siparis> musteri_siparisler) {
+    public static void Iade(int siparis_kod) {
         Scanner sc = new Scanner(System.in);
 
-        Siparis siparis = musteri_siparisler.stream().filter( p-> p.kimlik == siparis_kod).findFirst().get();
+        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
         if (siparis.durum == 0) {
             System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E - Hayır için H)");
             String iade = sc.next();
@@ -107,23 +101,20 @@ public class Musteri extends Kullanici{
             }
         } else {
             System.out.println("Bu aşamada sipariş iptal edilemez");
+            sc.next();
         }
     }
 
-    public static void SiparisListele(ArrayList<Siparis> musteri_siparisler) {
-        for (int i = 0; i < musteri_siparisler.size(); i++) {
-            System.out.println((musteri_siparisler.get(i).kimlik) + ". " + Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik).ad + " (toplam Tutar:" + musteri_siparisler.get(i).toplamTutar(Test.firmalar.get(musteri_siparisler.get(i).firma_kimlik)) + ")");// i. müsterinin siparişi (toplam TL)
-        }
-    }
-
-    public static ArrayList<Siparis> GetSiparisler(int musteri_index) {
-        ArrayList<Siparis> musteri_siparisler = new ArrayList<>();
+    public static void SiparisListele(int musteri_index) {
         for (int i = 0; i < Test.siparisler.size(); i++) {
-            if (Test.siparisler.get(i).musteri_kimlik == musteri_index) {
-                musteri_siparisler.add(Test.siparisler.get(i));
+
+            if (musteri_index == Test.siparisler.get(i).musteri_kimlik) {
+                System.out.println((Test.siparisler.get(i).kimlik) + ". " + Test.firmalar.get(Test.siparisler.get(i).firma_kimlik).ad + " (toplam Tutar:" + Test.siparisler.get(i).toplamTutar(Test.firmalar.get(Test.siparisler.get(i).firma_kimlik)) + ")");// i. müsterinin siparişi (toplam TL)
+             
             }
+        
         }
-        return musteri_siparisler;
     }
+
     //////STATIC FUNCS.
 }

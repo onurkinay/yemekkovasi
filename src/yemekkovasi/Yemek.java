@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class Yemek {
     
-    int kimlik;
     String ad;
     int fiyat;
     int firma_index;

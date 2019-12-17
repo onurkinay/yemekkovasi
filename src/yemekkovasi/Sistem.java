@@ -30,7 +30,7 @@ public class Sistem {
             } while (ka_index == -1);
             if (Kullanici.Tip(ka_index) == 2) {
                 int firma_index = Kullanici.Kimlik(ka_index);
-                ArrayList<Siparis> firma_siparisler = Firma.GetSiparisler(firma_index);
+                
 
                 int komut = -1;
                 do {
@@ -43,9 +43,10 @@ public class Sistem {
                     komut = sc.nextInt();
                     switch (komut) {
                         case 1:
-                            Firma.SiparisListele(firma_siparisler, firma_index);
+                            Firma.SiparisListele(firma_index);
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız: ");
-                            int siparis_kod = sc.nextInt() - 1;
+                            int siparis_kod = Test.siparisler.get(sc.nextInt()).kimlik;
+                            
                             Firma.SiparisDetay(siparis_kod);
                             Firma.SiparisDurumu(siparis_kod);
                             break;
@@ -94,8 +95,7 @@ public class Sistem {
                 int komut = -1;
                 do {
 
-                    ArrayList<Siparis> musteri_siparisler = Musteri.GetSiparisler(musteri_index);
-
+                  
                     System.out.println("YemekKovası Müşteri Sayfasına hoşgeldiniz " + Test.musteriler.get(musteri_index).ad);
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Sipariş Ver");
@@ -106,11 +106,12 @@ public class Sistem {
 
                     switch (komut) {
                         case 1:
-                            Musteri.SiparisListele(musteri_siparisler);
+                            Musteri.SiparisListele(musteri_index);
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız: ");
-                            int siparis_kod = sc.nextInt();
-                            Musteri.SiparisDetay(siparis_kod, musteri_siparisler);
-                            Musteri.Iade(siparis_kod, musteri_siparisler);
+                            int siparis_kod = Test.siparisler.get(sc.nextInt()).kimlik;
+                            
+                            Musteri.SiparisDetay(siparis_kod);
+                            Musteri.Iade(siparis_kod);
                             break;
                         case 2:
                             Musteri.addSiparis(musteri_index);
