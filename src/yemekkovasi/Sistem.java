@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package yemekkovasi;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -26,11 +24,12 @@ public class Sistem {
                 if (ka_index == -1) {
                     System.out.println("Böyle bir kullanıcı yok. Lütfen tekrar deneyiniz. Çıkmak için CIK yazarak Enter'layın");
 
-                }else if(ka_index == -100) System.exit(0);
+                } else if (ka_index == -100) {
+                    System.exit(0);
+                }
             } while (ka_index == -1);
             if (Kullanici.Tip(ka_index) == 2) {
                 int firma_index = Kullanici.Kimlik(ka_index);
-                
 
                 int komut = -1;
                 do {
@@ -43,12 +42,14 @@ public class Sistem {
                     komut = sc.nextInt();
                     switch (komut) {
                         case 1:
-                            Firma.SiparisListele(firma_index);
-                            System.out.println("Görüntülemek istediğiniz siparisi yazınız: ");
-                            int siparis_kod = Test.siparisler.get(sc.nextInt()).kimlik;
-                            
-                            Firma.SiparisDetay(siparis_kod);
-                            Firma.SiparisDurumu(siparis_kod);
+                            Siparis.Listele(firma_index, true);
+                            System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkmak için -1 yazınız): ");
+                            int gelen_kod = sc.nextInt();
+                            if(gelen_kod == -1) break;
+                            int siparis_kod = Test.siparisler.get(gelen_kod).kimlik;
+
+                            Siparis.Detay(siparis_kod);
+                            Siparis.Durum(siparis_kod);
                             break;
                         case 2:
                             int alt_komut = -2;
@@ -95,7 +96,6 @@ public class Sistem {
                 int komut = -1;
                 do {
 
-                  
                     System.out.println("YemekKovası Müşteri Sayfasına hoşgeldiniz " + Test.musteriler.get(musteri_index).ad);
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Sipariş Ver");
@@ -106,15 +106,22 @@ public class Sistem {
 
                     switch (komut) {
                         case 1:
-                            Musteri.SiparisListele(musteri_index);
-                            System.out.println("Görüntülemek istediğiniz siparisi yazınız: ");
-                            int siparis_kod = Test.siparisler.get(sc.nextInt()).kimlik;
+                            if (!Siparis.Listele(musteri_index)) {
+                                System.out.println("Herhangi bir siparişiniz bulunmuyor");
+                                sc.next();
+                                break;
+                            }
                             
-                            Musteri.SiparisDetay(siparis_kod);
-                            Musteri.Iade(siparis_kod);
+                            System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkış için -1 yazınız): ");
+                            int gelen_siparis = sc.nextInt();
+                            if(gelen_siparis == -1) break;
+                            int siparis_kod = Test.siparisler.get(gelen_siparis).kimlik;
+
+                            Siparis.Detay(siparis_kod);
+                            Siparis.Iade(siparis_kod);
                             break;
                         case 2:
-                            Musteri.addSiparis(musteri_index);
+                            Siparis.Ekle(musteri_index);
                             break;
                         case 3:
                             System.out.println(Test.musteriler.get(musteri_index));
