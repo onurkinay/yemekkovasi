@@ -1,7 +1,5 @@
 package yemekkovasi;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Musteri extends Kullanici {
     //  int kimlik;
@@ -31,16 +29,4 @@ public class Musteri extends Kullanici {
         return "Ad Soyad: " + ad + "\nTelefon: " + telefon + "\nAdres: " + adres;
     }
 
-    ////STATIC FUNCS.
- 
-
- 
-
-  
-    
-    
-
-   
-
-    //////STATIC FUNCS.
 }

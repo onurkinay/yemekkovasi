@@ -22,7 +22,22 @@ public class Siparis {
 
     @Override
     public String toString() {
-        return "Siparis{" + "firma_kimlik=" + firma_kimlik + ", musteri_kimlik=" + musteri_kimlik + ", siparis=" + siparis + ", durum=" + durum + '}';
+        if (Kullanici.Tip(Sistem.ka_index) == 2) {
+            return "Siparis detay:"
+                    + "\nMüşteri adı:" + Test.musteriler.get(this.musteri_kimlik).ad
+                    + "\nAdresi: " + Test.musteriler.get(this.musteri_kimlik).adres
+                    + "\nTelefonu:" + Test.musteriler.get(this.musteri_kimlik).telefon
+                    + "\n" + PorsiyonListele(this)
+                    + "Sipariş durumu: " + this.getDurum();
+        } else {
+            return "Siparis detay:"
+                    + "\nFirma adı:" + Test.firmalar.get(this.firma_kimlik).ad
+                    + "\nAdresi: " + Test.firmalar.get(this.firma_kimlik).adres
+                    + "\nTelefonu:" + Test.firmalar.get(this.firma_kimlik).telefon
+                    + "\n" + PorsiyonListele(this)
+                    + "Sipariş durumu: " + this.getDurum();
+
+        }
     }
 
     public int toplamTutar(Firma firma) {
@@ -37,8 +52,8 @@ public class Siparis {
         }
         return tutar;
     }
-    
-       public static void Ekle(int musteri_index) {
+
+    public static void Ekle(int musteri_index) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Sipariş vermek istediğiniz firmayi seçiniz:");
         for (int i = 0; i < Test.firmalar.size(); i++) {
@@ -137,29 +152,6 @@ public class Siparis {
         }
     }
 
-    public static void Detay(int siparis_kod, boolean firma) {
-
-        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
-        System.out.println("Siparis detay:"
-                + "\nMüşteri adı:" + Test.musteriler.get(siparis.musteri_kimlik).ad
-                + "\nAdresi: " + Test.musteriler.get(siparis.musteri_kimlik).adres
-                + "\nTelefonu:" + Test.musteriler.get(siparis.musteri_kimlik).telefon);
-
-        PorsiyonListele(siparis);
-        System.out.println("Sipariş durumu: " + siparis.getDurum());
-
-    }
-
-    public static void Detay(int siparis_kod) {
-        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
-        System.out.println("Siparis detay:"
-                + "\nFirma adı:" + Test.firmalar.get(siparis.firma_kimlik).ad
-                + "\nAdresi: " + Test.firmalar.get(siparis.firma_kimlik).adres
-                + "\nTelefonu:" + Test.firmalar.get(siparis.firma_kimlik).telefon);
-
-        PorsiyonListele(siparis);
-        System.out.println("Sipariş durumu: " + siparis.getDurum());
-    }
 
     public static void Iade(int siparis_kod) {
         Scanner sc = new Scanner(System.in);
@@ -178,19 +170,21 @@ public class Siparis {
         }
     }
 
-    public static void PorsiyonListele(Siparis siparis) {
+    public static String PorsiyonListele(Siparis siparis) {
+        String porsiyonlar = "";
         for (int i = 0; i < siparis.siparis.length; i++) {
             int porsiyon = Integer.parseInt(siparis.siparis[i][1]);
-            System.out.println(siparis.siparis[i][0] + " Porsiyon: " + porsiyon);
+            porsiyonlar += siparis.siparis[i][0] + " Porsiyon: " + porsiyon + "\n";
 
         }
+        return porsiyonlar;
     }
-    
-      public static void Durum(int siparis_kod) {
+
+    public static void Durum(int siparis_kod) {
         Scanner sc = new Scanner(System.in);
         String yeniDurum = "";
-        
-        Siparis siparis = Test.siparisler.stream().filter( p-> p.kimlik == siparis_kod).findFirst().get();
+
+        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
         if (siparis.durum == 0) {
             System.out.println("Sipariş yola çıktı mı? (Evet için E - Hayır için H)");
             yeniDurum = sc.next();
@@ -205,6 +199,5 @@ public class Siparis {
             }
         }
     }
-   
 
 }

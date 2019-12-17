@@ -1,8 +1,6 @@
 package yemekkovasi;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Firma extends Kullanici{
     ArrayList<Yemek> menuler;
  

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package yemekkovasi;
+
 import java.util.Scanner;
 
 /**
@@ -12,13 +13,15 @@ import java.util.Scanner;
  */
 public class Sistem {
 
+    static int ka_index;
+
     public static void Baslat() {
         Scanner sc = new Scanner(System.in);
 
         boolean don = true;
         do {
             System.out.println("YemekKovası'na hoşgeldiniz");
-            int ka_index;
+
             do {
                 ka_index = Kullanici.KullaniciKontrol();
                 if (ka_index == -1) {
@@ -45,10 +48,12 @@ public class Sistem {
                             Siparis.Listele(firma_index, true);
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkmak için -1 yazınız): ");
                             int gelen_kod = sc.nextInt();
-                            if(gelen_kod == -1) break;
+                            if (gelen_kod == -1) {
+                                break;
+                            }
                             int siparis_kod = Test.siparisler.get(gelen_kod).kimlik;
 
-                            Siparis.Detay(siparis_kod);
+                            Test.siparisler.get(gelen_kod);
                             Siparis.Durum(siparis_kod);
                             break;
                         case 2:
@@ -111,13 +116,15 @@ public class Sistem {
                                 sc.next();
                                 break;
                             }
-                            
+
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkış için -1 yazınız): ");
                             int gelen_siparis = sc.nextInt();
-                            if(gelen_siparis == -1) break;
+                            if (gelen_siparis == -1) {
+                                break;
+                            }
                             int siparis_kod = Test.siparisler.get(gelen_siparis).kimlik;
 
-                            Siparis.Detay(siparis_kod);
+                            Test.siparisler.get(gelen_siparis);
                             Siparis.Iade(siparis_kod);
                             break;
                         case 2:
