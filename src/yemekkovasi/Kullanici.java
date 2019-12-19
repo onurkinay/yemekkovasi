@@ -18,6 +18,7 @@ public class Kullanici {
     String telefon;
     String ad;
     String adres;
+    int hesap;
     int k_tip;
 
     static Scanner sc = new Scanner(System.in);
@@ -26,7 +27,9 @@ public class Kullanici {
         Scanner sc = new Scanner(System.in);
         System.out.print("Kullanıcı adınızı giriniz(Çıkış için 0): ");
         String ka = sc.next();
-        if(ka.equals("0")) return -100;
+        if (ka.equals("0")) {
+            return -100;
+        }
         System.out.println("Şifrenizi giriniz");
         String sifre = sc.next();
         for (int i = 0; i < Test.firmalar.size(); i++) {
@@ -49,17 +52,24 @@ public class Kullanici {
         System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
         System.out.println("-----------------------------");
         System.out.println("Kullanıcı adınız: ");
-        String ka = sc.next();
+        String ka = sc.nextLine().trim();
 
         System.out.println("Şifre: ");
-        String sifre = sc.next();
+        String sifre = sc.nextLine().trim();
         if (Tip(ka_index) == 1) {
-            Test.musteriler.get(Kimlik(ka_index)).kadi = ka;
-            Test.musteriler.get(Kimlik(ka_index)).sifre = sifre;
+            if (ka.length() != 0) {
+                Test.musteriler.get(Kimlik(ka_index)).kadi = ka;
+            }
+            if (sifre.length() != 0) {
+                Test.musteriler.get(Kimlik(ka_index)).sifre = sifre;
+            }
         } else {
-
-            Test.firmalar.get(Kimlik(ka_index)).kadi = ka;
-            Test.firmalar.get(Kimlik(ka_index)).sifre = sifre;
+            if (ka.length() != 0) {
+                Test.firmalar.get(Kimlik(ka_index)).kadi = ka;
+            }
+            if (sifre.length() != 0) {
+                Test.firmalar.get(Kimlik(ka_index)).sifre = sifre;
+            }
         }
         System.out.println("Giriş bilgileriniz değiştirdiniz.");
     }
@@ -67,31 +77,27 @@ public class Kullanici {
     public static void BilgiDegistirme(int ka_index) {
         System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
         System.out.println("Ad Soyad: ");
-        String yeni_ad = sc.next();
+        String yeni_ad = sc.nextLine().trim();
 
         System.out.println("Telefon: ");
-        String yeni_telefon = sc.next();
-        
-        System.out.println("Adres: ");
-        String yeni_Adres = sc.next();
-        
-        if (Tip(ka_index) == 1) {
-            Musteri degisen_musteri = new Musteri();
+        String yeni_telefon = sc.nextLine().trim();
 
-            degisen_musteri.ad = yeni_ad.equals("") ? Test.musteriler.get(Kimlik(ka_index)).ad : yeni_ad;
-            degisen_musteri.telefon = yeni_telefon.equals("") ? Test.musteriler.get(Kimlik(ka_index)).telefon : yeni_telefon;
-            degisen_musteri.adres = yeni_Adres.equals("") ? Test.musteriler.get(Kimlik(ka_index)).adres : yeni_Adres;
-            degisen_musteri.kadi = Test.musteriler.get(Kimlik(ka_index)).kadi;
-            degisen_musteri.sifre = Test.musteriler.get(Kimlik(ka_index)).sifre;
+        System.out.println("Adres: ");
+        String yeni_Adres = sc.nextLine().trim();
+
+        if (Tip(ka_index) == 1) {
+            Musteri degisen_musteri = Test.musteriler.get(Kimlik(ka_index));
+
+            degisen_musteri.ad = yeni_ad.length()==0 ? Test.musteriler.get(Kimlik(ka_index)).ad : yeni_ad;
+            degisen_musteri.telefon = yeni_telefon.length()==0  ? Test.musteriler.get(Kimlik(ka_index)).telefon : yeni_telefon;
+            degisen_musteri.adres = yeni_Adres.length()==0  ? Test.musteriler.get(Kimlik(ka_index)).adres : yeni_Adres; 
 
             Test.musteriler.set(Kimlik(ka_index), degisen_musteri);
         } else {
-            Firma degisen_firma = new Firma();
-            degisen_firma.ad = yeni_ad.equals("") ? Test.firmalar.get(Kimlik(ka_index)).ad : yeni_ad;
-            degisen_firma.telefon = yeni_telefon.equals("") ? Test.firmalar.get(Kimlik(ka_index)).telefon : yeni_telefon;
-            degisen_firma.adres = yeni_Adres.equals("") ? Test.firmalar.get(Kimlik(ka_index)).adres : yeni_Adres;
-            degisen_firma.kadi = Test.firmalar.get(Kimlik(ka_index)).kadi;
-            degisen_firma.sifre = Test.firmalar.get(Kimlik(ka_index)).sifre;
+            Firma degisen_firma = Test.firmalar.get(Kimlik(ka_index));
+            degisen_firma.ad = yeni_ad.length()==0  ? Test.firmalar.get(Kimlik(ka_index)).ad : yeni_ad;
+            degisen_firma.telefon = yeni_telefon.length()==0  ? Test.firmalar.get(Kimlik(ka_index)).telefon : yeni_telefon;
+            degisen_firma.adres = yeni_Adres.length()==0  ? Test.firmalar.get(Kimlik(ka_index)).adres : yeni_Adres; 
             Test.firmalar.set(Kimlik(ka_index), degisen_firma);
         }
     }

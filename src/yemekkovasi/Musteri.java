@@ -2,14 +2,13 @@ package yemekkovasi;
 
 
 public class Musteri extends Kullanici {
-    //  int kimlik;
-
-    Musteri(String ad, String telefon, String adres, String kadi, String sifre) {
+    Musteri(String ad, String telefon, String adres, String kadi, String sifre, int hesap) {
         this.ad = ad;
         this.telefon = telefon;
         this.adres = adres;
         this.kadi = kadi;
         this.sifre = sifre;
+        this.hesap = hesap;
         this.k_tip = 1;
     }
 
@@ -26,7 +25,11 @@ public class Musteri extends Kullanici {
 
     @Override
     public String toString() {
-        return "Ad Soyad: " + ad + "\nTelefon: " + telefon + "\nAdres: " + adres;
+        return "Ad Soyad: " + ad + "\nTelefon: " + telefon + "\nAdres: " + adres+"\nHesap bakiyesi:"+ hesap;
+    }
+    
+    public void ParaEkle(int para){
+        this.hesap += para;
     }
 
 }

@@ -30,11 +30,11 @@ public class Test {
         Scanner sc = new Scanner(System.in);
         musteriler = new ArrayList<Musteri>() {
             {
-                add(new Musteri("Onur Kınay", "0555", "Halıcıoğlu", "onur123", "o1234"));
-                add(new Musteri("Ahmet Yılmaz", "0554", "Fatih", "ahmet4", "ay144"));
-                add(new Musteri("Mehmet Yenilmez", "0553", "Küçükçamlıca", "mehmet44", "mehyen456"));
-                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "urfaligenc"));
-                add(new Musteri("Ayşe Çalışkan", "0011", "Beylidüzü", "ayse12", "ayse987"));
+                add(new Musteri("Onur Kınay", "0555", "Halıcıoğlu", "onur123", "o1234", 100));
+                add(new Musteri("Ahmet Yılmaz", "0554", "Fatih", "ahmet4", "ay144", 200));
+                add(new Musteri("Mehmet Yenilmez", "0553", "Küçükçamlıca", "mehmet44", "mehyen456",300));
+                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "urfaligenc",400));
+                add(new Musteri("Ayşe Çalışkan", "0011", "Beylidüzü", "ayse12", "ayse987",500));
             }
         };
 
@@ -47,35 +47,35 @@ public class Test {
                         add(new Yemek("Mercimek Çorbası", 6));
                         add(new Yemek("Urfa DÜrüm", 5));
                     }
-                }, "urfali", "qwerty1"));
+                }, "urfali", "qwerty1" ,50));
                 add(new Firma("Adanalı Amca'nın Yeri", "Halıcıoğlu", "0544", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Lahmacun", 5));
                         add(new Yemek("İşkembe Çorbası", 6));
                         add(new Yemek("Adana Dürüm", 5));
                     }
-                }, "adanali", "asdfgh1"));
+                }, "adanali", "asdfgh1", 50));
                 add(new Firma("Japon Recep'in Mekanı", "Acıbadem", "0558", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Suşi", 15));
                         add(new Yemek("Ramen", 30));
                         add(new Yemek("Noodle", 15));
                     }
-                }, "japonya4", "osaka11"));
+                }, "japonya4", "osaka11", 50));
                 add(new Firma("PizzaLove", "Beyoğlu", "0548", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Küçük Pizza", 5));
                         add(new Yemek("Orta Pizza", 15));
                         add(new Yemek("Büyük Pizza", 25));
                     }
-                }, "pizza6", "italya"));
+                }, "pizza6", "italya", 50));
                 add(new Firma("Bağcılar Döner", "Bağcılar", "0566", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Yarım Döner", 5));
                         add(new Yemek("Lavaş Döner", 15));
                         add(new Yemek("Porsion Döner", 20));
                     }
-                }, "bagcilar", "demirkapi"));
+                }, "bagcilar", "demirkapi",50));
             }
         };
 

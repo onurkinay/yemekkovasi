@@ -5,7 +5,7 @@ public class Firma extends Kullanici{
     ArrayList<Yemek> menuler;
  
 
-    Firma(String ad, String adres, String telefon, ArrayList<Yemek> menuler, String kadi, String sifre) {
+    Firma(String ad, String adres, String telefon, ArrayList<Yemek> menuler, String kadi, String sifre, int hesap) {
     
         this.ad = ad;
         this.adres = adres;
@@ -13,6 +13,7 @@ public class Firma extends Kullanici{
         this.menuler = menuler;
         this.kadi = kadi;
         this.sifre = sifre;
+        this.hesap = hesap;
         this.k_tip = 2;
     }
 
@@ -33,7 +34,11 @@ public class Firma extends Kullanici{
 
     @Override
     public String toString() {
-        return "Ad: " + ad + "\nAdres=" + adres + "\nTelefon Numarası=" + telefon;
+        return "Ad: " + ad + "\nAdres=" + adres + "\nTelefon Numarası=" + telefon+"\nHesap:"+ hesap;
+    }
+    
+    public void ParaCek(int miktar){
+        this.hesap -= miktar;
     }
  
 }

@@ -33,14 +33,15 @@ public class Sistem {
             } while (ka_index == -1);
             if (Kullanici.Tip(ka_index) == 2) {
                 int firma_index = Kullanici.Kimlik(ka_index);
-
+                Firma firma = Test.firmalar.get(firma_index);
                 int komut = -1;
                 do {
-                    System.out.println("YemekKovası Firma Sayfasına hoşgeldiniz " + Test.firmalar.get(firma_index).ad);
+                    System.out.println("YemekKovası Firma Sayfasına hoşgeldiniz " + firma.ad);
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Yemek menüsü işlemleri");
                     System.out.println("3. Kullanıcı bilgilerimi değiştir");
                     System.out.println("4. Giriş bilgilerimi değiştir");
+                    System.out.println("5. Hesaptan para çek");
                     System.out.println("0. Çıkış");
                     komut = sc.nextInt();
                     switch (komut) {
@@ -51,10 +52,13 @@ public class Sistem {
                             if (gelen_kod == -1) {
                                 break;
                             }
-                            int siparis_kod = Test.siparisler.get(gelen_kod).kimlik;
-
-                            Test.siparisler.get(gelen_kod);
-                            Siparis.Durum(siparis_kod);
+                            Siparis siparis = Siparis.Getir(gelen_kod);
+                            if (siparis.firma_kimlik == firma_index) {
+                                System.out.println(siparis);
+                                Siparis.Iade(siparis.kimlik);
+                            } else {
+                                System.out.println("Yanlış sipariş");
+                            }
                             break;
                         case 2:
                             int alt_komut = -2;
@@ -77,6 +81,16 @@ public class Sistem {
                                     case 4:
                                         Kullanici.GirisDegistirme(ka_index);
                                         break;
+                                    case 5:
+                                        System.out.println("Hesabınızda bulunan para miktari:" + firma.hesap);
+                                        System.out.println("Ne kadar para çekeceksiniz?: ");
+                                        int miktar = sc.nextInt();
+                                        if (miktar > 0) {
+                                            firma.ParaCek(miktar);
+                                        } else {
+                                            System.out.println("Girilen sayı 0 veya 0'dan küçük olamaz");
+                                        }
+                                        break;
                                     default:
                                         break;
                                 }
@@ -84,7 +98,7 @@ public class Sistem {
                             } while (alt_komut != -1);
                             break;
                         case 3:
-                            System.out.println(Test.firmalar.get(firma_index));
+                            System.out.println(firma);
                             System.out.println("Bilgilerinizi değiştirmek için E yazarak devam ediniz");
                             String komut_alt = sc.next();
                             if ("E".equals(komut_alt)) {
@@ -94,18 +108,21 @@ public class Sistem {
                         default:
                             break;
                     }
-
+                    Bekle();
                 } while (komut != 0);
             } else {
                 int musteri_index = Kullanici.Kimlik(ka_index);
+                Musteri musteri = Test.musteriler.get(musteri_index);
                 int komut = -1;
                 do {
 
-                    System.out.println("YemekKovası Müşteri Sayfasına hoşgeldiniz " + Test.musteriler.get(musteri_index).ad);
+                    System.out.println("YemekKovası Müşteri Sayfasına hoşgeldiniz " + musteri.ad);
                     System.out.println("1. Alınan siparişleri görüntüle");
                     System.out.println("2. Sipariş Ver");
                     System.out.println("3. Kullanıcı bilgilerimi görüntüle veya değiştir");
                     System.out.println("4. Giriş bilgilerimi değiştir");
+                    System.out.println("5. Hesaba para ekle");
+
                     System.out.println("0. Çıkış");
                     komut = sc.nextInt();
 
@@ -113,7 +130,7 @@ public class Sistem {
                         case 1:
                             if (!Siparis.Listele(musteri_index)) {
                                 System.out.println("Herhangi bir siparişiniz bulunmuyor");
-                                sc.next();
+
                                 break;
                             }
 
@@ -122,16 +139,20 @@ public class Sistem {
                             if (gelen_siparis == -1) {
                                 break;
                             }
-                            int siparis_kod = Test.siparisler.get(gelen_siparis).kimlik;
+                            Siparis siparis = Siparis.Getir(gelen_siparis);
+                            if (siparis.musteri_kimlik == musteri_index) {
+                                System.out.println(siparis);
+                                Siparis.Iade(siparis.kimlik);
+                            } else {
+                                System.out.println("Yanlış sipariş kodu");
 
-                            Test.siparisler.get(gelen_siparis);
-                            Siparis.Iade(siparis_kod);
+                            }
                             break;
                         case 2:
                             Siparis.Ekle(musteri_index);
                             break;
                         case 3:
-                            System.out.println(Test.musteriler.get(musteri_index));
+                            System.out.println(musteri);
                             System.out.println("Bilgilerinizi değiştirmek için E yazarak devam ediniz");
                             String komut_alt = sc.next();
                             if ("E".equals(komut_alt)) {
@@ -141,11 +162,28 @@ public class Sistem {
                         case 4:
                             Kullanici.GirisDegistirme(ka_index);
                             break;
+                        case 5:
+                            System.out.println("Hesabınızda bulunan para miktari:" + musteri.hesap);
+                            System.out.println("Ne kadar para yükleyeceksiniz?: ");
+                            int miktar = sc.nextInt();
+                            if (miktar > 0) {
+                                musteri.ParaEkle(miktar);
+                            } else {
+                                System.out.println("Girilen sayı 0 veya 0'dan küçük olamaz");
+                            }
+                            break;
                         default:
                             break;
                     }
+                    Bekle();
                 } while (komut != 0);
             }
         } while (don);
+    }
+
+    public static String Bekle() {
+        System.out.println("Devam etmek için ENTER'a basınız");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine().trim();
     }
 }

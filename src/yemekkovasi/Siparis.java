@@ -1,6 +1,7 @@
 package yemekkovasi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Siparis {
@@ -18,6 +19,9 @@ public class Siparis {
         this.musteri_kimlik = musteri_kimlik;
         this.siparis = siparis;
         this.durum = 0;
+    }
+
+    public Siparis() {
     }
 
     @Override
@@ -51,6 +55,10 @@ public class Siparis {
 
         }
         return tutar;
+    }
+    
+    public static Siparis Getir(int siparis_kimlik){
+        return Test.siparisler.stream().filter(p -> p.kimlik == siparis_kimlik).findFirst().get();
     }
 
     public static void Ekle(int musteri_index) {
@@ -86,11 +94,19 @@ public class Siparis {
         System.out.println("Siparişi onaylıyor musunuz?");
         String yeniDurum = sc.next();
         if (yeniDurum.equals("E")) {
-            Test.siparisler.add(new Siparis(firma, musteri_index, siparis.toArray(new String[0][0])));
-            System.out.println("Siparişiniz alındı");
+            if (Siparis.toplamTutar(Test.firmalar.get(firma), siparis) < Test.musteriler.get(musteri_index).hesap) {
+                Test.siparisler.add(new Siparis(firma, musteri_index, siparis.toArray(new String[0][0])));
+                Test.musteriler.get(musteri_index).hesap -= Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
+                Test.firmalar.get(firma).hesap += Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
+                System.out.println("Siparişiniz alındı");
+            } else {
+                System.out.println("Siparişiniz onaylanmadı çünkü hesabınızda yeterli para bulunmamaktadır.");
+              
+            }
         } else {
             System.out.println("---Siparişiniz onaylamadınız---");
         }
+          sc.next();
 
     }
 
@@ -152,15 +168,16 @@ public class Siparis {
         }
     }
 
-
     public static void Iade(int siparis_kod) {
         Scanner sc = new Scanner(System.in);
 
-        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
+        Siparis siparis = Getir(siparis_kod);
         if (siparis.durum == 0) {
             System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E - Hayır için H)");
             String iade = sc.next();
             if (iade.equals("E")) {
+                Test.musteriler.get(siparis.musteri_kimlik).hesap += Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
+                Test.firmalar.get(siparis.firma_kimlik).hesap -= Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
                 Test.siparisler.remove(siparis.kimlik);
                 System.out.println("İade basarili");
             }
@@ -184,7 +201,7 @@ public class Siparis {
         Scanner sc = new Scanner(System.in);
         String yeniDurum = "";
 
-        Siparis siparis = Test.siparisler.stream().filter(p -> p.kimlik == siparis_kod).findFirst().get();
+        Siparis siparis = Getir(siparis_kod);
         if (siparis.durum == 0) {
             System.out.println("Sipariş yola çıktı mı? (Evet için E - Hayır için H)");
             yeniDurum = sc.next();
