@@ -13,14 +13,12 @@ import java.util.Scanner;
  */
 public class Menu {
 
-    static Scanner sc = new Scanner(System.in);
-
     public static void Getir(int firma_index) {
         System.out.println("--Menü Listesi--");
         for (int i = 0; i < Test.firmalar.get(firma_index).menuler.size(); i++) {
             Yemek menu = Test.firmalar.get(firma_index).menuler.get(i);
 
-            System.out.println((i + 1) + ". " + menu.getAd() + " Ücret: " + menu.fiyat);
+            System.out.println((i + 1) + ". " + menu.ad + " Ücret: " + menu.fiyat);
         }
 
         System.out.println("--Menü Listesi--");
@@ -32,13 +30,18 @@ public class Menu {
     }
 
     public static void YemekEkle(int firma_index) {
+
+        Scanner sc = new Scanner(System.in);
         System.out.println("Menüye Yemek Ekleme");
         System.out.println("Yemek adı: ");
-        String yemek_ad = sc.next();
+        String yemek_ad = sc.nextLine();
         System.out.println("Porsiyon ücreti: ");
         int yemek_fiyat = sc.nextInt();
+        if (yemek_fiyat <= 0) {
+            System.out.println("Yemek fiyati 0 ve 0'dan küçük olamaz");
+            return;
+        }
         Menu.YemekEkle(yemek_ad, yemek_fiyat, firma_index);
-        System.out.println("Yemek menüye eklenmiştir");
     }
 
     public static void YemekSil(int yemek_index, int firma_index) {
@@ -50,6 +53,8 @@ public class Menu {
     }
 
     public static void YemekSil(int firma_index) {
+
+        Scanner sc = new Scanner(System.in);
         System.out.println("Menüden yemek Silme");
         System.out.println("Silmek istediğiniz yemek numarasını yazınız");
         int yemek_index = sc.nextInt() - 1;
@@ -67,15 +72,23 @@ public class Menu {
     }
 
     public static void YemekDuzenle(int firma_index) {
+
+        Scanner sc = new Scanner(System.in);
         System.out.println("Menüden Yemek Düzenleme");
         System.out.println("Düzenlemek istediğiniz yemek numarasını yazınız");
         int yemekd_index = sc.nextInt() - 1;
         if (yemekd_index >= 0) {
-            System.out.println("Değiştirmek istemediğiniz özelliği boş bırakarak devam ediniz");
             System.out.println("Yemek adı: ");
-            String yeni_yemek = sc.next();
+            String yeni_yemek = sc.next().trim();
+            if (yeni_yemek.length() <= 0) {
+                System.out.println("Yemek adı boş olamaz");
+                return;
+            }
             System.out.println("Fiyatı: ");
             int yeni_fiyat = sc.nextInt();
+            if (yeni_fiyat < 1) {
+                System.out.println("Fiyat 0 ve 0'dan küçük olamaz");
+            }
 
             YemekDuzenle(yeni_yemek, yeni_fiyat, firma_index, yemekd_index);
 

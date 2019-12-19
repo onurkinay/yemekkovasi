@@ -19,7 +19,7 @@ public class Kullanici {
     String ad;
     String adres;
     int hesap;
-    int k_tip;
+    int k_tip; // 2001 -> Firma // 1001 -> Müşteri
 
     static Scanner sc = new Scanner(System.in);
 
@@ -102,11 +102,11 @@ public class Kullanici {
         }
     }
 
-    public static int Tip(int id) {
+    public static int Tip(int id) {// Kullanıcı firma mı kullanıcı mı
         return id / 1000;
     }
 
-    public static int Kimlik(int id) {
+    public static int Kimlik(int id) {// kullanıcı kimlik nosu alır
         return id % 1000;
     }
 

@@ -25,7 +25,7 @@ public class Sistem {
             do {
                 ka_index = Kullanici.KullaniciKontrol();
                 if (ka_index == -1) {
-                    System.out.println("Böyle bir kullanıcı yok. Lütfen tekrar deneyiniz. Çıkmak için CIK yazarak Enter'layın");
+                    System.out.println("Böyle bir kullanıcı yok. Lütfen tekrar deneyiniz.");
 
                 } else if (ka_index == -100) {
                     System.exit(0);
@@ -46,16 +46,23 @@ public class Sistem {
                     komut = sc.nextInt();
                     switch (komut) {
                         case 1:
-                            Siparis.Listele(firma_index, true);
+                            if (!Siparis.Listele(firma_index, true)) {
+                                System.out.println("Herhangi bir siparişiniz bulunmuyor");
+
+                                break;
+                            }
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkmak için -1 yazınız): ");
                             int gelen_kod = sc.nextInt();
                             if (gelen_kod == -1) {
+                                break;
+                            } else if (gelen_kod > Test.siparisler.size() || gelen_kod < -1) {
+                                System.out.println("Geçersiz sipariş kodu");
                                 break;
                             }
                             Siparis siparis = Siparis.Getir(gelen_kod);
                             if (siparis.firma_kimlik == firma_index) {
                                 System.out.println(siparis);
-                                Siparis.Iade(siparis.kimlik);
+                                Siparis.Durum(siparis.kimlik);
                             } else {
                                 System.out.println("Yanlış sipariş");
                             }
@@ -78,19 +85,7 @@ public class Sistem {
                                         break;
                                     case 3:
                                         Menu.YemekDuzenle(firma_index);
-                                    case 4:
-                                        Kullanici.GirisDegistirme(ka_index);
-                                        break;
-                                    case 5:
-                                        System.out.println("Hesabınızda bulunan para miktari:" + firma.hesap);
-                                        System.out.println("Ne kadar para çekeceksiniz?: ");
-                                        int miktar = sc.nextInt();
-                                        if (miktar > 0) {
-                                            firma.ParaCek(miktar);
-                                        } else {
-                                            System.out.println("Girilen sayı 0 veya 0'dan küçük olamaz");
-                                        }
-                                        break;
+
                                     default:
                                         break;
                                 }
@@ -103,6 +98,19 @@ public class Sistem {
                             String komut_alt = sc.next();
                             if ("E".equals(komut_alt)) {
                                 Kullanici.BilgiDegistirme(ka_index);
+                            }
+                            break;
+                        case 4:
+                            Kullanici.GirisDegistirme(ka_index);
+                            break;
+                        case 5:
+                            System.out.println("Hesabınızda bulunan para miktari:" + firma.hesap);
+                            System.out.println("Ne kadar para çekeceksiniz?: ");
+                            int miktar = sc.nextInt();
+                            if (miktar > 0) {
+                                firma.ParaCek(miktar);
+                            } else {
+                                System.out.println("Girilen sayı 0 veya 0'dan küçük olamaz");
                             }
                             break;
                         default:
@@ -137,6 +145,9 @@ public class Sistem {
                             System.out.println("Görüntülemek istediğiniz siparisi yazınız(Çıkış için -1 yazınız): ");
                             int gelen_siparis = sc.nextInt();
                             if (gelen_siparis == -1) {
+                                break;
+                            } else if (gelen_siparis > Test.siparisler.size() || gelen_siparis < -1) {
+                                System.out.println("Geçersiz sipariş kodu");
                                 break;
                             }
                             Siparis siparis = Siparis.Getir(gelen_siparis);
