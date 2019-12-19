@@ -208,7 +208,7 @@ public class Siparis {
             }
         } else {
             System.out.println("Bu aşamada sipariş iptal edilemez");
-          
+            sc.next();
         }
     }
 
