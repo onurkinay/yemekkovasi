@@ -38,7 +38,12 @@ public class Firma extends Kullanici{
     }
     
     public void ParaCek(int miktar){
+        if(this.hesap > miktar){
         this.hesap -= miktar;
+            System.out.println("Paranız başarılı bir şekilde çektiniz");
+        }else{
+            System.out.println("Bakiyeden fazla para çekilemez");
+        }
     }
  
 }

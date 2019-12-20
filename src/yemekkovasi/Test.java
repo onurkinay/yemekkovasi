@@ -14,7 +14,7 @@ import java.util.Scanner;
 
         **En az üç adet sınıf kullanımı(Firma, Siparis, Musteri, Kullanici, Yemek)(=)
         **Dizi ve ArrayList'lerde CRUD(=)
-        **Kalıtım ve alt sınıf üretme(?)
+        **Kalıtım ile alt sınıf üretme(=)
         **Overloading(=)
         **Override(=)
         **Test sınıfı oluşması(!=)
@@ -24,8 +24,7 @@ public class Test {
 
     public static ArrayList<Musteri> musteriler = new ArrayList<>();
     public static ArrayList<Firma> firmalar = new ArrayList<Firma>();
-    public static ArrayList<Siparis> siparisler = new ArrayList<>();
-
+    public static ArrayList<Siparis> siparisler = new ArrayList<>(); 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         musteriler = new ArrayList<Musteri>() {
@@ -83,8 +82,9 @@ public class Test {
 
         siparisler.add(new Siparis(0, 0, new String[][]{{"Lahmacun", "5"}}));
         siparisler.add(new Siparis(1, 0, new String[][]{{"Adana Dürüm", "10"}}));
-        Sistem.Baslat();
-
+        
+       Menu.YemekDuzenle("Onur", 45, 0, 2);
+ 
     }
 
 }

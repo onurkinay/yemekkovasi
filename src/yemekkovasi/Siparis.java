@@ -133,10 +133,7 @@ public class Siparis {
             System.out.println("Siparişi onaylıyor musunuz? (Evet için E)");
             String yeniDurum = sc.next();
             if (yeniDurum.equals("E")) {
-                if (Siparis.toplamTutar(Test.firmalar.get(firma), siparis) < Test.musteriler.get(musteri_index).hesap) {
-                    Test.siparisler.add(new Siparis(firma, musteri_index, siparis.toArray(new String[0][0])));
-                    Test.musteriler.get(musteri_index).hesap -= Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
-                    Test.firmalar.get(firma).hesap += Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
+                if (Ekle(musteri_index, firma, siparis)) {
                     System.out.println("Siparişiniz alındı");
                 } else {
                     System.out.println("Siparişiniz onaylanmadı çünkü hesabınızda yeterli para bulunmamaktadır.");
@@ -149,6 +146,17 @@ public class Siparis {
             System.out.println("Herhangi bir siparişte bulunmadınız");
         }
 
+    }
+
+    public static boolean Ekle(int musteri_index, int firma, ArrayList<String[]> siparis) {
+        if (Siparis.toplamTutar(Test.firmalar.get(firma), siparis) < Test.musteriler.get(musteri_index).hesap) {
+            Test.siparisler.add(new Siparis(firma, musteri_index, siparis.toArray(new String[0][0])));
+            Test.musteriler.get(musteri_index).hesap -= Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
+            Test.firmalar.get(firma).hesap += Siparis.toplamTutar(Test.firmalar.get(firma), siparis);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static int toplamTutar(Firma firma, ArrayList<String[]> siparisler) {
@@ -201,15 +209,29 @@ public class Siparis {
             System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E)");
             String iade = sc.next();
             if (iade.equals("E")) {
-                Test.musteriler.get(siparis.musteri_kimlik).hesap += Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
-                Test.firmalar.get(siparis.firma_kimlik).hesap -= Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
-                Test.siparisler.remove(siparis.kimlik);
-                System.out.println("İade basarili");
+                if (Iade(siparis)) {
+                    System.out.println("İade basarılı");
+                } else {
+                    System.out.println("İade başarısız");
+                }
+
             }
         } else {
             System.out.println("Bu aşamada sipariş iptal edilemez");
-            sc.next();
+
         }
+    }
+
+    public static boolean Iade(Siparis siparis) {
+        if (siparis.durum == 0) {
+            Test.musteriler.get(siparis.musteri_kimlik).hesap += Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
+            Test.firmalar.get(siparis.firma_kimlik).hesap -= Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
+            Test.siparisler.remove(siparis.kimlik);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public static String PorsiyonListele(Siparis siparis) {

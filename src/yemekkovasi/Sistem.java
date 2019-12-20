@@ -95,7 +95,7 @@ public class Sistem {
                         case 3:
                             System.out.println(firma);
                             System.out.println("Bilgilerinizi değiştirmek için E yazarak devam ediniz");
-                            String komut_alt = sc.next();
+                            String komut_alt = sc.nextLine();
                             if ("E".equals(komut_alt)) {
                                 Kullanici.BilgiDegistirme(ka_index);
                             }

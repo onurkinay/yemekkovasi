@@ -34,9 +34,14 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.println("Menüye Yemek Ekleme");
         System.out.println("Yemek adı: ");
-        String yemek_ad = sc.nextLine();
-        System.out.println("Porsiyon ücreti: ");
-        int yemek_fiyat = sc.nextInt();
+        String yemek_ad = sc.nextLine().trim();
+        if (yemek_ad.length() <= 0) {
+            System.out.println("Yemek adı boş olamaz");
+            return;
+        }
+       
+        System.out.print("Porsiyon ücreti: ");
+        int yemek_fiyat = Integer.parseInt(sc.nextLine().trim());
         if (yemek_fiyat <= 0) {
             System.out.println("Yemek fiyati 0 ve 0'dan küçük olamaz");
             return;
@@ -78,15 +83,16 @@ public class Menu {
         System.out.println("Düzenlemek istediğiniz yemek numarasını yazınız");
         int yemekd_index = sc.nextInt() - 1;
         if (yemekd_index >= 0) {
-            System.out.println("Yemek adı: ");
-            String yeni_yemek = sc.next().trim();
+            System.out.println("Yemek adı:");
+            String yeni_yemek = sc.nextLine();
             if (yeni_yemek.length() <= 0) {
                 System.out.println("Yemek adı boş olamaz");
+                Sistem.Bekle();
                 return;
             }
-            System.out.println("Fiyatı: ");
-            int yeni_fiyat = sc.nextInt();
-            if (yeni_fiyat < 1) {
+            System.out.println("Fiyatı:");
+            int yeni_fiyat = Integer.parseInt(sc.next().trim());
+            if (yeni_fiyat <= 0) {
                 System.out.println("Fiyat 0 ve 0'dan küçük olamaz");
             }
 

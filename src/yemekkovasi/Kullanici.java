@@ -26,13 +26,17 @@ public class Kullanici {
     public static int KullaniciKontrol() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Kullanıcı adınızı giriniz(Çıkış için 0): ");
-        String ka = sc.next();
+        String ka = sc.nextLine();
         if (ka.equals("0")) {
             return -100;
         }
         System.out.println("Şifrenizi giriniz");
-        String sifre = sc.next();
-        for (int i = 0; i < Test.firmalar.size(); i++) {
+        String sifre = sc.nextLine();
+        return KullaniciKontrol(ka, sifre);
+    }
+    
+    public static int KullaniciKontrol(String ka, String sifre){
+          for (int i = 0; i < Test.firmalar.size(); i++) {
             if (ka.equals(Test.firmalar.get(i).kadi) && sifre.equals(Test.firmalar.get(i).sifre)) {
                 return i + (Test.firmalar.get(i).k_tip * 1000);
 
@@ -46,7 +50,6 @@ public class Kullanici {
         }
         return -1;
     }
-
     public static void GirisDegistirme(int ka_index) {
         System.out.println("Giriş bilgilerinizi düzenliyorsunuz.");
         System.out.println("Değiştirmek istemediğiniz bilgi için boş bırakarak devam edin");
@@ -56,7 +59,11 @@ public class Kullanici {
 
         System.out.println("Şifre: ");
         String sifre = sc.nextLine().trim();
-        if (Tip(ka_index) == 1) {
+        GirisDegistirme(ka_index, ka, sifre);
+    }
+    
+    public static void GirisDegistirme(int ka_index, String ka, String sifre){
+         if (Tip(ka_index) == 1) {
             if (ka.length() != 0) {
                 Test.musteriler.get(Kimlik(ka_index)).kadi = ka;
             }
@@ -71,7 +78,7 @@ public class Kullanici {
                 Test.firmalar.get(Kimlik(ka_index)).sifre = sifre;
             }
         }
-        System.out.println("Giriş bilgileriniz değiştirdiniz.");
+      
     }
 
     public static void BilgiDegistirme(int ka_index) {
@@ -84,8 +91,12 @@ public class Kullanici {
 
         System.out.println("Adres: ");
         String yeni_Adres = sc.nextLine().trim();
-
-        if (Tip(ka_index) == 1) {
+        BilgiDegistirme(ka_index, yeni_ad, yeni_telefon, yeni_Adres);
+      
+    }
+    
+    public static void BilgiDegistirme(int ka_index, String yeni_ad, String yeni_telefon, String yeni_Adres){
+          if (Tip(ka_index) == 1) {
             Musteri degisen_musteri = Test.musteriler.get(Kimlik(ka_index));
 
             degisen_musteri.ad = yeni_ad.length()==0 ? Test.musteriler.get(Kimlik(ka_index)).ad : yeni_ad;
