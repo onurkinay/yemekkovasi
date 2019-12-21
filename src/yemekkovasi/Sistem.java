@@ -62,7 +62,7 @@ public class Sistem {
                             Siparis siparis = Siparis.Getir(gelen_kod);
                             if (siparis.firma_kimlik == firma_index) {
                                 System.out.println(siparis);
-                                Siparis.Durum(siparis.kimlik);
+                                siparis.Durum();
                             } else {
                                 System.out.println("Yanlış sipariş");
                             }
@@ -153,7 +153,7 @@ public class Sistem {
                             Siparis siparis = Siparis.Getir(gelen_siparis);
                             if (siparis.musteri_kimlik == musteri_index) {
                                 System.out.println(siparis);
-                                Siparis.Iade(siparis.kimlik);
+                                siparis.Iade();
                             } else {
                                 System.out.println("Yanlış sipariş kodu");
 

@@ -24,16 +24,17 @@ public class Test {
 
     public static ArrayList<Musteri> musteriler = new ArrayList<>();
     public static ArrayList<Firma> firmalar = new ArrayList<Firma>();
-    public static ArrayList<Siparis> siparisler = new ArrayList<>(); 
+    public static ArrayList<Siparis> siparisler = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         musteriler = new ArrayList<Musteri>() {
             {
                 add(new Musteri("Onur Kınay", "0555", "Halıcıoğlu", "onur123", "o1234", 100));
                 add(new Musteri("Ahmet Yılmaz", "0554", "Fatih", "ahmet4", "ay144", 200));
-                add(new Musteri("Mehmet Yenilmez", "0553", "Küçükçamlıca", "mehmet44", "mehyen456",300));
-                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "urfaligenc",400));
-                add(new Musteri("Ayşe Çalışkan", "0011", "Beylidüzü", "ayse12", "ayse987",500));
+                add(new Musteri("Mehmet Yenilmez", "0553", "Küçükçamlıca", "mehmet44", "mehyen456", 300));
+                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "urfaligenc", 400));
+                add(new Musteri("Ayşe Çalışkan", "0011", "Beylidüzü", "ayse12", "ayse987", 500));
             }
         };
 
@@ -46,7 +47,7 @@ public class Test {
                         add(new Yemek("Mercimek Çorbası", 6));
                         add(new Yemek("Urfa DÜrüm", 5));
                     }
-                }, "urfali", "qwerty1" ,50));
+                }, "urfali", "qwerty1", 50));
                 add(new Firma("Adanalı Amca'nın Yeri", "Halıcıoğlu", "0544", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Lahmacun", 5));
@@ -74,7 +75,7 @@ public class Test {
                         add(new Yemek("Lavaş Döner", 15));
                         add(new Yemek("Porsion Döner", 20));
                     }
-                }, "bagcilar", "demirkapi",50));
+                }, "bagcilar", "demirkapi", 50));
             }
         };
 
@@ -82,9 +83,62 @@ public class Test {
 
         siparisler.add(new Siparis(0, 0, new String[][]{{"Lahmacun", "5"}}));
         siparisler.add(new Siparis(1, 0, new String[][]{{"Adana Dürüm", "10"}}));
-        
-       Menu.YemekDuzenle("Onur", 45, 0, 2);
- 
+
+        //Konsol ekranı için 
+        //Sistem.Baslat();
+        //Kullanıcı girişi:
+        int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
+
+        //Kullanici bilgileri değiştirme
+        Kullanici.BilgiDegistirme(ka_index, "Yeni isim", "000", "Halıcıoğlu");
+
+        //Kullanıcı giriş bilgileri değiştirme
+        Kullanici.GirisDegistirme(ka_index, "ka", "sifre");
+
+        //Firma menü listeleme
+        Menu.Getir(0);//firma index
+
+        //Firma menüye yemek ekleme
+        Menu.YemekEkle("", 0, 0);
+
+        //Firma menüden yemek silme
+        Menu.YemekSil(0, 0);
+
+        //Firma menüden yemek düzenleme
+        Menu.YemekDuzenle("", 0, 0, 0);
+
+        //Sipariş verme
+        Siparis.Ekle(0, 0, new ArrayList<String[]>() {//format --> Yemek adı - porsiyon sayısı
+            {
+                add(new String[]{"Yarım Döner", "5"});
+                add(new String[]{"Lavaş Döner", "15"});
+                add(new String[]{"Porsion Döner", "20"});
+            }
+        });
+
+        //Siparis görüntüleme -- siparis bulunamazsa ise false döndürür
+        Siparis.Listele(0);
+
+        //Siparis getirme -> siparisler, array index değil özel kimlik numaraları ile getirir.
+        Siparis siparis = Siparis.Getir(0);
+        //Siparisi görüntüleme
+        System.out.println(siparis);
+
+        //Siparis iade etme
+        siparis.Iade();// belirli siparisi iade etme
+
+        //Siparisin durumu
+        siparis.getDurum();
+
+        //Siparisin durumu güncelleme -> komut her çalıştığında sipariş durumu bir adım sonrası olarak degistirecektir
+        siparis.Durum(true);
+
+        //Müsteri hesabına para ekleme
+        musteriler.get(0).ParaEkle(0);
+
+        //Firma hesabından para çekme
+        firmalar.get(0).ParaCek(0);
+
     }
 
 }

@@ -31,14 +31,14 @@ public class Siparis {
                     + "\nMüşteri adı:" + Test.musteriler.get(this.musteri_kimlik).ad
                     + "\nAdresi: " + Test.musteriler.get(this.musteri_kimlik).adres
                     + "\nTelefonu:" + Test.musteriler.get(this.musteri_kimlik).telefon
-                    + "\n" + PorsiyonListele(this)
+                    + "\n" + PorsiyonListele()
                     + "Sipariş durumu: " + this.getDurum();
         } else {
             return "Siparis detay:"
                     + "\nFirma adı:" + Test.firmalar.get(this.firma_kimlik).ad
                     + "\nAdresi: " + Test.firmalar.get(this.firma_kimlik).adres
                     + "\nTelefonu:" + Test.firmalar.get(this.firma_kimlik).telefon
-                    + "\n" + PorsiyonListele(this)
+                    + "\n" + PorsiyonListele()
                     + "Sipariş durumu: " + this.getDurum();
 
         }
@@ -73,11 +73,80 @@ public class Siparis {
         return dur;
     }
 
-    public void setDurum() {
+    public void IadeC() {
+        Scanner sc = new Scanner(System.in);
+
+        if (this.durum == 0) {
+            System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E)");
+            String iade = sc.next();
+            if (iade.equals("E")) {
+                if (Iade()) {
+                    System.out.println("İade basarılı");
+                } else {
+                    System.out.println("İade başarısız");
+                }
+
+            }
+        } else {
+            System.out.println("Bu aşamada sipariş iptal edilemez");
+
+        }
+    }
+
+    public boolean Iade() {
+        if (this.durum == 0) {
+            Test.musteriler.get(this.musteri_kimlik).hesap += Siparis.toplamTutar(Test.firmalar.get(this.firma_kimlik), new ArrayList<>(Arrays.asList(this.siparis)));
+            Test.firmalar.get(this.firma_kimlik).hesap -= Siparis.toplamTutar(Test.firmalar.get(this.firma_kimlik), new ArrayList<>(Arrays.asList(this.siparis)));
+            Test.siparisler.remove(this.kimlik);
+            return true;
+        } else {
+            return false;
+        }
 
     }
-    ////////////
 
+    public String PorsiyonListele() {
+        String porsiyonlar = "";
+        for (int i = 0; i < this.siparis.length; i++) {
+            int porsiyon = Integer.parseInt(this.siparis[i][1]);
+            porsiyonlar += this.siparis[i][0] + " Porsiyon: " + porsiyon + "\n";
+
+        }
+        return porsiyonlar;
+    }
+
+    public void Durum() {
+        Scanner sc = new Scanner(System.in);
+        String yeniDurum = "";
+
+        if (this.durum == 0) {
+            System.out.println("Sipariş yola çıktı mı? (Evet için E)");
+            yeniDurum = sc.next();
+            if (yeniDurum.equals("E")) {
+                Durum(true);
+            }
+        } else if (this.durum == 1) {
+            System.out.println("Sipariş teslim edildi mi? (Evet için E)");
+            yeniDurum = sc.next();
+            if (yeniDurum.equals("E")) {
+                Durum(true);
+            }
+        }
+    }
+
+    public void Durum(boolean yeniDurum) {
+        if (this.durum == 0) {
+            if (yeniDurum) {
+                this.durum = 1;
+            }
+        } else if (this.durum == 1) {
+            if (yeniDurum) {
+                this.durum = 2;
+            }
+        }
+    }
+
+    ////////////
     public static Siparis Getir(int siparis_kimlik) {
         return Test.siparisler.stream().filter(p -> p.kimlik == siparis_kimlik).findFirst().get();
     }
@@ -199,69 +268,6 @@ public class Siparis {
 
         }
         return listelendi;
-    }
-
-    public static void Iade(int siparis_kod) {
-        Scanner sc = new Scanner(System.in);
-
-        Siparis siparis = Getir(siparis_kod);
-        if (siparis.durum == 0) {
-            System.out.println("Siparişi iade etmek istiyor musunuz? (Evet için E)");
-            String iade = sc.next();
-            if (iade.equals("E")) {
-                if (Iade(siparis)) {
-                    System.out.println("İade basarılı");
-                } else {
-                    System.out.println("İade başarısız");
-                }
-
-            }
-        } else {
-            System.out.println("Bu aşamada sipariş iptal edilemez");
-
-        }
-    }
-
-    public static boolean Iade(Siparis siparis) {
-        if (siparis.durum == 0) {
-            Test.musteriler.get(siparis.musteri_kimlik).hesap += Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
-            Test.firmalar.get(siparis.firma_kimlik).hesap -= Siparis.toplamTutar(Test.firmalar.get(siparis.firma_kimlik), new ArrayList<>(Arrays.asList(siparis.siparis)));
-            Test.siparisler.remove(siparis.kimlik);
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public static String PorsiyonListele(Siparis siparis) {
-        String porsiyonlar = "";
-        for (int i = 0; i < siparis.siparis.length; i++) {
-            int porsiyon = Integer.parseInt(siparis.siparis[i][1]);
-            porsiyonlar += siparis.siparis[i][0] + " Porsiyon: " + porsiyon + "\n";
-
-        }
-        return porsiyonlar;
-    }
-
-    public static void Durum(int siparis_kod) {
-        Scanner sc = new Scanner(System.in);
-        String yeniDurum = "";
-
-        Siparis siparis = Getir(siparis_kod);
-        if (siparis.durum == 0) {
-            System.out.println("Sipariş yola çıktı mı? (Evet için E)");
-            yeniDurum = sc.next();
-            if (yeniDurum.equals("E")) {
-                siparis.durum = 1;
-            }
-        } else if (siparis.durum == 1) {
-            System.out.println("Sipariş teslim edildi mi? (Evet için E)");
-            yeniDurum = sc.next();
-            if (yeniDurum.equals("E")) {
-                siparis.durum = 2;
-            }
-        }
     }
 
 }
