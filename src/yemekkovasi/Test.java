@@ -86,7 +86,7 @@ public class Test {
 
         //Konsol ekranı için 
         //Sistem.Baslat();
-        //Kullanıcı girişi:
+        //Kullanıcı girişi: kullanıcı var ise kullanıcının index numarasını döner, yok ise -1 döner
         int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
 
         //Kullanici bilgileri değiştirme
