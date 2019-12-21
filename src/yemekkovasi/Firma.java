@@ -34,7 +34,7 @@ public class Firma extends Kullanici{
 
     @Override
     public String toString() {
-        return "Ad: " + ad + "\nAdres=" + adres + "\nTelefon Numarası=" + telefon+"\nHesap:"+ hesap;
+        return "Ad: " + ad + "\nAdres: " + adres + "\nTelefon Numarası: " + telefon+"\nHesap:"+ hesap;
     }
     
     public void ParaCek(int miktar){

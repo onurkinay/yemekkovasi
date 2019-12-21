@@ -17,7 +17,7 @@ public class Test {
                 add(new Musteri("Onur Kınay", "0555", "Halıcıoğlu", "onur123", "o1234", 100));
                 add(new Musteri("Ahmet Yılmaz", "0554", "Fatih", "ahmet4", "ay144", 200));
                 add(new Musteri("Mehmet Yenilmez", "0553", "Küçükçamlıca", "mehmet44", "mehyen456", 300));
-                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "urfaligenc", 400));
+                add(new Musteri("Hakan İpek", "0552", "Mecidiyeköy", "hakan61", "hakan61", 400));
                 add(new Musteri("Ayşe Çalışkan", "0011", "Beylidüzü", "ayse12", "ayse987", 500));
             }
         };
@@ -29,16 +29,16 @@ public class Test {
                     {
                         add(new Yemek("Lahmacun", 5));
                         add(new Yemek("Mercimek Çorbası", 6));
-                        add(new Yemek("Urfa DÜrüm", 5));
+                        add(new Yemek("Urfa Dürüm", 5));
                     }
-                }, "urfali", "qwerty1", 50));
+                }, "urfali", "12345", 50));
                 add(new Firma("Adanalı Amca'nın Yeri", "Halıcıoğlu", "0544", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Lahmacun", 5));
                         add(new Yemek("İşkembe Çorbası", 6));
                         add(new Yemek("Adana Dürüm", 5));
                     }
-                }, "adanali", "asdfgh1", 50));
+                }, "adanali", "adana12", 50));
                 add(new Firma("Japon Recep'in Mekanı", "Acıbadem", "0558", new ArrayList<Yemek>() {
                     {
                         add(new Yemek("Suşi", 15));
@@ -59,7 +59,7 @@ public class Test {
                         add(new Yemek("Lavaş Döner", 15));
                         add(new Yemek("Porsion Döner", 20));
                     }
-                }, "bagcilar", "demirkapi", 50));
+                }, "bagcilar", "meydan", 50));
             }
         };
 
@@ -69,13 +69,19 @@ public class Test {
         siparisler.add(new Siparis(1, 0, new String[][]{{"Adana Dürüm", "10"}}));
 
         //Konsol ekranı için 
-        Sistem.Baslat();
+        //Sistem.Baslat();
         //Kullanıcı girişi: kullanıcı var ise kullanıcının index numarasını döner, yok ise -1 döner
-        int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
+        int ka_index = Kullanici.KullaniciKontrol("onur123", "o1234");
 
         //Kullanici bilgileri değiştirme
         Kullanici.BilgiDegistirme(ka_index, "Yeni isim", "000", "Halıcıoğlu");
 
+        //Kullanici bilgisi çekme (müşteri için)
+        System.out.println(musteriler.get(Kullanici.Kimlik(ka_index)));
+        
+        //Kullanıcı bilgisi çekme (firma için)
+        System.out.println(firmalar.get(0));
+        
         //Kullanıcı giriş bilgileri değiştirme
         Kullanici.GirisDegistirme(ka_index, "ka", "sifre");
 
@@ -92,16 +98,16 @@ public class Test {
         Menu.YemekDuzenle("", 0, 0, 0);
 
         //Sipariş verme
-        Siparis.Ekle(0, 0, new ArrayList<String[]>() {//format --> Yemek adı - porsiyon sayısı
+       Siparis.Ekle(Kullanici.Kimlik(ka_index), 4, new ArrayList<String[]>() {//format --> Yemek adı - porsiyon sayısı
             {
-                add(new String[]{"Yarım Döner", "5"});
-                add(new String[]{"Lavaş Döner", "15"});
-                add(new String[]{"Porsion Döner", "20"});
+                add(new String[]{"Yarım Döner", "1"});
+                add(new String[]{"Lavaş Döner", "1"});
+                add(new String[]{"Porsion Döner", "1"});
             }
         });
 
         //Siparis görüntüleme -- siparis bulunamazsa ise false döndürür
-        Siparis.Listele(0);
+        Siparis.Listele(Kullanici.Kimlik(ka_index));
 
         //Siparis getirme -> siparisler, array index değil özel kimlik numaraları ile getirir.
         Siparis siparis = Siparis.Getir(0);
