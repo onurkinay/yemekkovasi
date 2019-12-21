@@ -81,10 +81,11 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.println("Menüden Yemek Düzenleme");
         System.out.println("Düzenlemek istediğiniz yemek numarasını yazınız");
-        int yemekd_index = sc.nextInt() - 1;
+        int yemekd_index = Integer.parseInt(sc.nextLine()) - 1;
         if (yemekd_index >= 0) {
             System.out.println("Yemek adı:");
-            String yeni_yemek = sc.nextLine();
+            System.out.print("");
+            String yeni_yemek = sc.nextLine().trim();
             if (yeni_yemek.length() <= 0) {
                 System.out.println("Yemek adı boş olamaz");
                 Sistem.Bekle();

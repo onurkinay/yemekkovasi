@@ -3,23 +3,7 @@ package yemekkovasi;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/* 
-        Firma
-            Sipariş alabiliyor, yola çıktığını bildiriyor
-            Menüsünü değiştirebiliyor, silebiliyor ve ekleyebiliyor(--PDF FIKIR DIŞI--)
-            Kendi kullanıcı ve giriş bilgilerini değiştirebiliyor(--PDF FIKIR DIŞI--)
-        Müşteri
-            Sipariş verebiliyor,görüntüleyebiliyor, onaylayabiliyor, yola çıkmadıysa iade edebiliyor
-            Kendi kullanıcı ve giriş bilgilerini değiştirebiliyor(--PDF FIKIR DIŞI--)
-
-        **En az üç adet sınıf kullanımı(Firma, Siparis, Musteri, Kullanici, Yemek)(=)
-        **Dizi ve ArrayList'lerde CRUD(=)
-        **Kalıtım ile alt sınıf üretme(=)
-        **Overloading(=)
-        **Override(=)
-        **Test sınıfı oluşması(!=)
-        ****Test sınıfında kontrol yapısı bulunmaması(?)
- */
+ 
 public class Test {
 
     public static ArrayList<Musteri> musteriler = new ArrayList<>();
@@ -87,7 +71,7 @@ public class Test {
         //Konsol ekranı için 
         //Sistem.Baslat();
         //Kullanıcı girişi: kullanıcı var ise kullanıcının index numarasını döner, yok ise -1 döner
-        int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
+       /* int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
 
         //Kullanici bilgileri değiştirme
         Kullanici.BilgiDegistirme(ka_index, "Yeni isim", "000", "Halıcıoğlu");
@@ -138,7 +122,9 @@ public class Test {
 
         //Firma hesabından para çekme
         firmalar.get(0).ParaCek(0);
-
+*/
+       Menu.YemekDuzenle(0);
+       Menu.Getir(0);
     }
 
 }
