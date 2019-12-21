@@ -69,9 +69,9 @@ public class Test {
         siparisler.add(new Siparis(1, 0, new String[][]{{"Adana Dürüm", "10"}}));
 
         //Konsol ekranı için 
-        //Sistem.Baslat();
+        Sistem.Baslat();
         //Kullanıcı girişi: kullanıcı var ise kullanıcının index numarasını döner, yok ise -1 döner
-       /* int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
+        int ka_index = Kullanici.KullaniciKontrol("kullanici adi", "şifre");
 
         //Kullanici bilgileri değiştirme
         Kullanici.BilgiDegistirme(ka_index, "Yeni isim", "000", "Halıcıoğlu");
@@ -122,9 +122,6 @@ public class Test {
 
         //Firma hesabından para çekme
         firmalar.get(0).ParaCek(0);
-*/
-       Menu.YemekDuzenle(0);
-       Menu.Getir(0);
     }
 
 }
